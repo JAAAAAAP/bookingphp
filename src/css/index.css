@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700;800&family=Mitr:wght@500&family=Poppins:wght@200;300;400;500;600;800&display=swap');
+* {
+    font-family: 'Kanit', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+    height: 70px;
+    background-color: rgb(196, 196, 196);
+    box-shadow: 0px 10px 20px 0px rgba(130, 130, 130, 0.2);}
+nav div {
+    margin-left: 2rem ;
+}
+nav ul {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+nav ul li {
+    list-style: none;
+}
+nav ul li a {
+    text-decoration: none;
+    padding: 15px 30px;
+    margin: 0 5px;
+    border-radius: 10px;
+    color: black;
+}
+nav ul li a:hover{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    transition: 0.5s;
+}
+.box {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 10px;
+    width: 25%;
+    height: 300px;
+    left: 72%;
+    top: 7%;
+    background-color: rgb(212, 212, 212);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.box .box-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.box .box-item a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100px;
+    height: 30px;
+    color: black;
+    background-color: rgb(255, 0, 0);
+    border-radius: 8px;
+}
+.box .box-item .boxclose{
+    cursor: pointer;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+.popup {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: rgba(0, 0, 0, 0.226);
+}
+.popup-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 350px;
+    height: 250px;
+    border-radius: 10px;
+    background: white;
+    
+}
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+form input{
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    width: 100%;
+    border-radius: 10px;
+    color: black;
+}
+form button{
+    width: 6rem;
+    height: 2rem;
+    background-color: rgb(255, 0, 0);
+    border: 0;
+    border-radius: 10px;
+}
+form button a{
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+form button:hover{
+    background-color: rgb(167, 167, 167);
+    transition: 0.5s;
+    color: black;
+}
+form div a {
+    display: block;
+    color: rgb(0, 183, 255);
+    text-decoration: none;
+    margin: 10px 0;
+}
+.card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    gap: 20px;
+    margin: 2rem auto;
+    width: 95%;
+    height: 400px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: rgb(176, 176, 176);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.container img {
+    width: 250px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container form input {
+    border: 3px solid black;
+    width: 179px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.container form button {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
