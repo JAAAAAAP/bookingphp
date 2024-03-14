@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
         }
         if ($_SESSION['role'] == 1) {
             // echo "<script>alert('Admin Login Succes');</script>";
-            echo "<script>window.location.href='admin.php';</script>";
+            echo "<script>window.location.href='./admin.php';</script>";
         }
     } else {
         echo "<script>alert('Somrthing went wrong');</script>";
@@ -75,7 +75,7 @@ if (isset($_POST['login'])) {
             </div>
             <h3 style=" margin-top: 10px;">โปรไฟล์</h3>
             <?php  if ($_SESSION['role'] == 1) {?>
-                <a class="logout" href="admin.php">
+                <a class="logout" href="./admin.php">
                 <h4>จัดการ</h4>
                 </a>
             <?php

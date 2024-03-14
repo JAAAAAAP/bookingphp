@@ -221,9 +221,11 @@
   font-size: 12px;
 }
 .home-section{
+  display: flex;
+  flex-direction: column;
   position: relative;
   background: var(--bgcolor--);
-  height: 100vh;
+  height: auto;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;

@@ -1,5 +1,5 @@
 <?php 
-require('../config/connectdb.php');
+include_once('../config/connectdb.php');
 
 class User {
         private function check($username,$password) {
@@ -21,5 +21,4 @@ class User {
             return $calllfecth;
         }
     }
-
 ?>
