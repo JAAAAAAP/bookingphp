@@ -74,6 +74,13 @@ if (isset($_POST['login'])) {
                 <i class="fa-regular fa-circle-xmark fa-xl"></i>
             </div>
             <h3 style=" margin-top: 10px;">โปรไฟล์</h3>
+            <?php  if ($_SESSION['role'] == 1) {?>
+                <a class="logout" href="admin.php">
+                <h4>จัดการ</h4>
+                </a>
+            <?php
+            }
+            ?>
             <a class="logout" href="logout.php">
                 <h4>ออกจากระบบ</h4>
             </a>

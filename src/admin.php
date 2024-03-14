@@ -18,7 +18,7 @@ $dbcon = new User;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin</title>
-    
+
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
@@ -42,17 +42,17 @@ $dbcon = new User;
                     <li><a class="link_name" href="#">สถานะ</a></li>
                 </ul>
             </li>
-        <!-- เพิ่ม -->
+            <!-- เพิ่ม -->
             <li>
-                <a href="#">
+                <a href="upload.php">
                     <i class='bx bx-plus'></i>
                     <span class="link_name">เพิ่ม</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">เพิ่ม</a></li>
+                    <li><a class="link_name" href="upload.php">เพิ่ม</a></li>
                 </ul>
             </li>
-        <!-- ประวัติ -->
+            <!-- ประวัติ -->
             <li>
                 <a href="#">
                     <i class='bx bx-history'></i>
@@ -62,7 +62,7 @@ $dbcon = new User;
                     <li><a class="link_name" href="#">ประวัติ</a></li>
                 </ul>
             </li>
-        <!-- ตั้งค่า -->
+            <!-- ตั้งค่า -->
             <li>
                 <a href="#">
                     <i class='bx bx-cog'></i>
@@ -72,27 +72,27 @@ $dbcon = new User;
                     <li><a class="link_name" href="#">ตั้งค่า</a></li>
                 </ul>
             </li>
-        <!-- โปรไฟล์ข้างล่าง -->
+            <!-- โปรไฟล์ข้างล่าง -->
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
                         <!--<img src="image/profile.jpg" alt="profileImg">-->
                     </div>
                     <div class="name-job">
-                    <?php
+                        <?php
                         if (isset($_SESSION['id'])) {
-                        $id = $_SESSION['id'];
-                        $qr = $dbcon->callfecth($id);
-                        $rs = mysqli_fetch_assoc($qr);
-                    ?>
-                        <div class="profile_name"><?= $_SESSION['user'] ?></div>
-                    <?php
-                    }
-                    ?>
+                            $id = $_SESSION['id'];
+                            $qr = $dbcon->callfecth($id);
+                            $rs = mysqli_fetch_assoc($qr);
+                        ?>
+                            <div class="profile_name"><?= $_SESSION['user'] ?></div>
+                        <?php
+                        }
+                        ?>
                     </div>
-                    <a href="index.php"><i class='bx bx-home'></i></a>                
+                    <a href="index.php"><i class='bx bx-home'></i></a>
                     <a href="logout.php"><i class='bx bx-log-out'></i></a>
-                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -103,9 +103,37 @@ $dbcon = new User;
             <i class='bx bx-menu'></i>
             <span class="text">ระบบจอง</span>
         </div>
+        <!-- icon -->
+        <div class="cardcontaner">
+            <div class="card">
+                <div class="carditem">
+                    <a href="#">
+                        <i class='bx bx-user'></i>
+                        <h4>จำนวนคนที่ยืม</h4>
+                        <span>10</span>
+                    </a>
+                </div>
 
+                <div class="carditem">
+                    <a href="#">
+                    <i class='bx bx-time-five' ></i>
+                        <h4>เลยกำหนด</h4>
+                        <span>10</span>
+                    </a>
+                </div>
+
+                <div class="carditem">
+                    <a href="#">
+                        <i class='bx bx-archive-in'></i>
+                        <h4>สต๊อก</h4>
+                        <span>10</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr size="5" color="#374151" width="95%" style="margin-top: 2rem; margin-left:2.5%">
     </section>
-
 
     <script src="js/admin.js"></script>
 </body>
