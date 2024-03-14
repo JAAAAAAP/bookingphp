@@ -16,11 +16,11 @@ if (isset($_POST['login'])) {
         $_SESSION['user'] = $rs['user'];
         $_SESSION['role'] = $rs['role'];
         if ($_SESSION['role'] == 0) {
-            echo "<script>alert('User Login Succes');</script>";
+            // echo "<script>alert('User Login Succes');</script>";
             echo "<script>window.location.href='index.php';</script>";
         }
         if ($_SESSION['role'] == 1) {
-            echo "<script>alert('Admin Login Succes');</script>";
+            // echo "<script>alert('Admin Login Succes');</script>";
             echo "<script>window.location.href='admin.php';</script>";
         }
     } else {
@@ -114,6 +114,30 @@ if (isset($_POST['login'])) {
             </form>
         </div>
 
+        <div class="container">
+            <img src="./img/pexels-math-90946.jpg" alt="">
+            <h3 style="margin-top: 10px;">กล้อง</h3>
+            <form method="post">
+                <input type="number" name="amount">
+                <button type="submit" name="submit">ยืม</button>
+            </form>
+        </div>
+        <div class="container">
+            <img src="./img/pexels-math-90946.jpg" alt="">
+            <h3 style="margin-top: 10px;">กล้อง</h3>
+            <form method="post">
+                <input type="number" name="amount">
+                <button type="submit" name="submit">ยืม</button>
+            </form>
+        </div>
+        <div class="container">
+            <img src="./img/pexels-math-90946.jpg" alt="">
+            <h3 style="margin-top: 10px;">กล้อง</h3>
+            <form method="post">
+                <input type="number" name="amount">
+                <button type="submit" name="submit">ยืม</button>
+            </form>
+        </div>
         <div class="container">
             <img src="./img/pexels-math-90946.jpg" alt="">
             <h3 style="margin-top: 10px;">กล้อง</h3>
