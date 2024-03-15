@@ -9,6 +9,7 @@
 :root {
     --bgcolor--: #F3F4F6;
     --textcolor-- : color: #374151;
+    --bgtextcolor-- : #DCDEE2;
 }
 nav {
     display: flex;

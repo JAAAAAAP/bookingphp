@@ -1,7 +1,9 @@
 <?php
 session_start();
+require "../controller/photo.php";
 require('../controller/user.php');
 $dbcon = new User;
+$photo = new photo;
 
 if (isset($_POST['login'])) {
     $username = ($_POST['username']);
@@ -74,9 +76,9 @@ if (isset($_POST['login'])) {
                 <i class="fa-regular fa-circle-xmark fa-xl"></i>
             </div>
             <h3 style=" margin-top: 10px;">โปรไฟล์</h3>
-            <?php  if ($_SESSION['role'] == 1) {?>
+            <?php if ($_SESSION['role'] == 1) { ?>
                 <a class="logout" href="./admin.php">
-                <h4>จัดการ</h4>
+                    <h4>จัดการ</h4>
                 </a>
             <?php
             }
@@ -103,58 +105,26 @@ if (isset($_POST['login'])) {
 
 
     <div class="card">
-        <div class="container">
-            <img src="./img/pexels-math-90946.jpg" alt="">
-            <h3 style="margin-top: 10px;">กล้อง</h3>
-            <form method="post">
-                <input type="number" name="amount" min="0" max="10" placeholder="จำนวนที่เหลือ">
-                <button type="submit" name="submit">ยืม</button>
-            </form>
-        </div>
-
-        <div class="container">
-            <img src="./img/pexels-math-90946.jpg" alt="">
-            <h3 style="margin-top: 10px;">กล้อง</h3>
-            <form method="post">
-                <input type="number" name="amount">
-                <button type="submit" name="submit">ยืม</button>
-            </form>
-        </div>
-
-        <div class="container">
-            <img src="./img/pexels-math-90946.jpg" alt="">
-            <h3 style="margin-top: 10px;">กล้อง</h3>
-            <form method="post">
-                <input type="number" name="amount">
-                <button type="submit" name="submit">ยืม</button>
-            </form>
-        </div>
-        <div class="container">
-            <img src="./img/pexels-math-90946.jpg" alt="">
-            <h3 style="margin-top: 10px;">กล้อง</h3>
-            <form method="post">
-                <input type="number" name="amount">
-                <button type="submit" name="submit">ยืม</button>
-            </form>
-        </div>
-        <div class="container">
-            <img src="./img/pexels-math-90946.jpg" alt="">
-            <h3 style="margin-top: 10px;">กล้อง</h3>
-            <form method="post">
-                <input type="number" name="amount">
-                <button type="submit" name="submit">ยืม</button>
-            </form>
-        </div>
-        <div class="container">
-            <img src="./img/pexels-math-90946.jpg" alt="">
-            <h3 style="margin-top: 10px;">กล้อง</h3>
-            <form method="post">
-                <input type="number" name="amount">
-                <button type="submit" name="submit">ยืม</button>
-            </form>
-        </div>
+        <?php
+        $sql = $photo->fecthphoto();
+        if ($sql->num_rows > 0) {
+            while ($row = $sql->fetch_assoc()) {
+                $imgUrl = './img/' . $row['img'];
+        ?>
+                <div class="container">
+                    <img src="<?= $imgUrl ?>" alt="">
+                    <h3 style="margin-top: 10px;"><?= $row['name'] ?></h3>
+                    <form method="post">
+                        <input type="number" name="amount" min="0" max="<?= $row['amount']?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">
+                        <button type="submit" name="submit">ยืม</button>
+                    </form>
+                </div>
+        <?php
+            }
+        }
+        ?>
     </div>
-
+    <img src="../src/img/pexels-stephan-seeber-1261731.jpg" alt="">
     <script src="js/index.js"></script>
 </body>
 

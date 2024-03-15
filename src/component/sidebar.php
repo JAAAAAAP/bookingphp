@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <body>
     <!-- sidebar -->
     <div class="sidebar close">
@@ -12,12 +11,12 @@
         <!-- สถานะ -->
         <ul class="nav-links">
             <li>
-                <a href="#">
+                <a href="http://localhost/Pichitchai/bookingphp/src/admin.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">สถานะ</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">สถานะ</a></li>
+                    <li><a class="link_name" href="http://localhost/Pichitchai/bookingphp/src/admin.php">สถานะ</a></li>
                 </ul>
             </li>
             <!-- เพิ่ม -->
@@ -86,7 +85,7 @@
         <div class="cardcontaner">
             <div class="card">
                 <div class="carditem">
-                    <a href="#">
+                    <a href="http://localhost/Pichitchai/bookingphp/src/admin.php">
                         <i class='bx bx-user'></i>
                         <h4>จำนวนคนที่ยืม</h4>
                         <span>10</span>
@@ -102,10 +101,16 @@
                 </div>
 
                 <div class="carditem">
-                    <a href="#">
+                    <a href="upload.php">
                         <i class='bx bx-archive-in'></i>
-                        <h4>สต๊อก</h4>
-                        <span>10</span>
+                        <h4>จำนวนของ</h4>
+                        <?php
+                        $sql = $photo->count();
+                        if($sql){
+                            $row = $sql->fetch_assoc();
+                        }
+                        ?>
+                        <span><?=$row['total_rows']?></span>
                     </a>
                 </div>
             </div>

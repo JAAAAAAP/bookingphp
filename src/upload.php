@@ -1,10 +1,12 @@
 <?php
 session_start();
-require "../controller/upload.php";
+require "../controller/photo.php";
 require('../controller/user.php');
 $dbcon = new User;
-$upload = new photo;
+$photo = new photo;
 $targetDir = "./img/";
+
+
 if (isset($_POST['submit'])) {
     $photoname = ($_POST['name']);
     $amount = ($_POST['amount']);
@@ -17,7 +19,7 @@ if (isset($_POST['submit'])) {
         $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
         if (in_array($fileType, $allowTypes)) {
             if (move_uploaded_file($_FILES['fileupload']['tmp_name'], $targetFilePath)) {
-                $insert = $upload->callphoto($photoname, $amount, $fileName);
+                $insert = $photo->callphoto($photoname, $amount, $fileName);
                 if ($insert) {
                     echo "<script>window.location.href='upload.php';</script>";
                 } else {
@@ -38,44 +40,84 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// body
-// sidebar
-include("./component/sidebar.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>upload</title>
-
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-</head>
-
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>upload</title>
+        
+        <link rel="stylesheet" href="css/admin.css">
+        <link rel="stylesheet" href="css/upload.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    
 <body>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="fileupload" accept="image/jpg, image/png" required>
-        <input type="text" name="name" required>
-        <input type="number" name="amount" required>
-        <button type="submit" name="submit">เพิ่มข้อมูล</button>
-    </form>
+    <!-- body -->
+    <!-- sidebar -->
+    <?php include("./component/sidebar.php"); ?>
+    <!-- แบบฟอร์ม -->
+    <div class="form-text">
+        <h3>เพิ่มข้อมูล</h3>
+    </div>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="fileupload" accept="image/jpg, image/png ,image/jpeg" required>
+            <input type="text" style="padding-left: 5px;" name="name" placeholder="ชื่อสิ่งของ" required>
+            <input type="number" style="padding-left: 5px;" name="amount" min="0" placeholder="จำนวน" required>
+            <button type="submit" name="submit">เพิ่มข้อมูล</button>
+        </form>
+    </div>
 
-    <?php
-    $sql = $upload->fecthphoto();
-    if ($sql->num_rows > 0) {
-        while($row = $sql->fetch_assoc()){
-            $imgUrl = './img/'.$row['img'];
-        ?>
-        <img src="<?php echo $imgUrl ?>" alt="" width="200px" class="card-img">
-        <h4><?= $row['p_id'] ?></h4>
-        <h4><?= $row['name'] ?></h4>
-        <h4><?= $row['amount']?></h4>
-    <?php
-        }
-    }
-    ?>
+
+    <!-- ตารางแสดงข้อมูลของ -->
+    <div class="table-container" role="region" tabindex="0">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <div>
+                            <div>ลำดับ</div>
+                        </div>
+                    </th>
+                    <th>รูป</th>
+                    <th>ชื่อ</th>
+                    <th>จำนวนคงเหลือ</th>
+                    <th>แก้ไขข้อมูล</th>
+                    <th>ลบข้อมูล</th>
+                </tr>
+                <?php
+                $sql = $photo->fecthphoto();
+                $i = 1;
+                if ($sql->num_rows > 0) {
+                    while ($row = $sql->fetch_assoc()) {
+                        $imgUrl = './img/' . $row['img'];
+                ?>
+                        <tr>
+                            <td>
+                                <h4><?php echo $i++ ?></h4>
+                            </td>
+                            <td><img src="<?php echo $imgUrl ?>" alt=""></td>
+                            <td>
+                                <h4><?= $row['name'] ?></h4>
+                            </td>
+                            <td>
+                                <h4><?= $row['amount'] ?></h4>
+                            </td>
+                            <td><a href="./update.php"><button class="edit">แก้ไขข้อมูล</button></a></td>
+                            <td><a href="../controller/photo.php?del=<?php echo $row['p_id']?>"><button class="delete">ลบข้อมูล</button></a></td>
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
+            </thead>
+        </table>
+    </div>
+    
+
 
     <script src="./js/admin.js"></script>
 </body>
