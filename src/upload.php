@@ -7,6 +7,7 @@ $photo = new photo;
 $targetDir = "./img/";
 
 
+
 if (isset($_POST['submit'])) {
     $photoname = ($_POST['name']);
     $amount = ($_POST['amount']);
@@ -43,17 +44,17 @@ if (isset($_POST['submit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>upload</title>
-        
-        <link rel="stylesheet" href="css/admin.css">
-        <link rel="stylesheet" href="css/upload.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    </head>
-    
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/upload.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+
 <body>
     <!-- body -->
     <!-- sidebar -->
@@ -79,7 +80,7 @@ if (isset($_POST['submit'])) {
                 <tr>
                     <th>
                         <div>
-                            <div>ลำดับ</div>
+                            <div>ลำดับที่</div>
                         </div>
                     </th>
                     <th>รูป</th>
@@ -91,13 +92,16 @@ if (isset($_POST['submit'])) {
                 <?php
                 $sql = $photo->fecthphoto();
                 $i = 1;
+                $n = 1;
                 if ($sql->num_rows > 0) {
                     while ($row = $sql->fetch_assoc()) {
                         $imgUrl = './img/' . $row['img'];
                 ?>
                         <tr>
                             <td>
-                                <h4><?php echo $i++ ?></h4>
+                                <h4>
+                                    <?php echo $i++;?>
+                                </h4>
                             </td>
                             <td><img src="<?php echo $imgUrl ?>" alt=""></td>
                             <td>
@@ -106,8 +110,8 @@ if (isset($_POST['submit'])) {
                             <td>
                                 <h4><?= $row['amount'] ?></h4>
                             </td>
-                            <td><a href="./update.php"><button class="edit">แก้ไขข้อมูล</button></a></td>
-                            <td><a href="../controller/photo.php?del=<?php echo $row['p_id']?>"><button class="delete">ลบข้อมูล</button></a></td>
+                            <td><a href="./update.php?update=<?php echo $row['p_id'] ?>&no=<?php echo $n++ ?>"><button class="edit">แก้ไขข้อมูล</button></a></td>
+                            <td><a href="../controller/photo.php?del=<?php echo $row['p_id'] ?>&img=<?php echo $row['img'] ?>"><button class="delete">ลบข้อมูล</button></a></td>
                         </tr>
                 <?php
                     }
@@ -116,7 +120,7 @@ if (isset($_POST['submit'])) {
             </thead>
         </table>
     </div>
-    
+
 
 
     <script src="./js/admin.js"></script>

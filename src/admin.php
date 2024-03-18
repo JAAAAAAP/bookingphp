@@ -26,7 +26,6 @@ include ("./component/sidebar.php")
 
 <body>
 
-
 <script src="./js/admin.js"></script>
 </body>
 
