@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
 <body>
     <!-- sidebar -->
     <div class="sidebar close">
@@ -118,4 +124,5 @@
 
         <hr size="5" color="#374151" width="95%" style="margin-top: 2rem; margin-left:2.5%">
     </section>
+    <script src="./js/admin.js"></script>
 </body>

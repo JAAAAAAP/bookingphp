@@ -50,9 +50,8 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>upload</title>
 
-    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/upload.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"> -->
 </head>
 
 <body>
@@ -123,7 +122,6 @@ if (isset($_POST['submit'])) {
 
 
 
-    <script src="./js/admin.js"></script>
 </body>
 
 </html>
