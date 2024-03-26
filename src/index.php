@@ -7,6 +7,7 @@
     <title>index</title>
 
     <script src="https://kit.fontawesome.com/3cc09a7ed1.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -25,7 +26,7 @@
                     <img src="<?= $imgUrl ?>" alt="">
                     <h3 name="name" style="margin-top: 10px;"><?= $row['name'] ?></h3>
                     <form action="index.php?get=<?php echo $row['p_id'] ?>" method="post">
-                        <input type="number" name="amount" min="0" max="<?= $row['amount'] ?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">
+                        <input type="number" name="amount[]" min="0" max="<?= $row['amount'] ?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">
                         <button type="submit" name="submit">ยืม</button>
                     </form>
                 </div>
@@ -38,13 +39,13 @@
     if (isset($_POST['submit'])) {
         $id = $_GET['get'];
         $amount = $_POST['amount'];
-
+        $sql = $photo->callid($id);
+        $rowproducts = $sql->fetch_assoc();
         
-        
-        ?>
+    ?>
         <div class="basket">
             <div class="amount">
-                <h5>2</h5>
+                <h5>5</h5>
             </div>
             <div class="basket-item">
                 <a href="borrow.php">
@@ -52,7 +53,8 @@
                 </a>
             </div>
         </div>
-        <?php } ?>
+    <?php } ?>
+
 </body>
 
 </html>
