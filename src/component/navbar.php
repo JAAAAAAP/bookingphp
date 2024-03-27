@@ -34,73 +34,65 @@ if (isset($_POST['login'])) {
 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="css/nav.css">
-    <script src="https://kit.fontawesome.com/3cc09a7ed1.js" crossorigin="anonymous"></script>
-</head>
 
 <body>
-    <nav>
-        <div>logo</div>
-        <ul>
+    <nav class="navbar justify-between bg-base-200 shadow-lg">
+        <div class="flex">
+            <a class="btn btn-ghost text-xl">logo</a>
+        </div>
+        <ul class="flex flex-row-reverse">
             <?php
             if (isset($_SESSION['id'])) {
                 $id = $_SESSION['id'];
                 $qr = $dbcon->callfecth($id);
                 $rs = mysqli_fetch_assoc($qr);
             ?>
-                <li><a id="userbutton" style="text-transform: uppercase;"><?= $_SESSION['user'] ?></a></li>
-                <li><a>รายการยืม</a></li>
+                <li><a class="text-base mx-2 btn btn-ghost uppercase" onclick="profile.showModal()"><?= $_SESSION['user'] ?></a></li>
+                <li><a class="text-base mx-2 btn btn-ghost">รายการยืม</a></li>
             <?php
             } else {
             ?>
-                <li><a href="#" id="button">เข้าสู่ระบบ</a></li>
+                <li><a class="text-base mx-2 btn btn-ghost" onclick="login.showModal()">เข้าสู่ระบบ</a></li>
             <?php
             }
             ?>
-            <li><a href="#">ติดต่อ</a></li>
+            <li><a href="#" class="text-base mx-2 btn btn-ghost">ติดต่อ</a></li>
         </ul>
     </nav>
 
-    <div class="box">
-        <div class="box-item">
-            <div class="boxclose">
-                <i class="fa-regular fa-circle-xmark fa-xl"></i>
-            </div>
-            <h3 style=" margin-top: 10px;">โปรไฟล์</h3>
+    <!-- login -->
+    <dialog id="login" class="modal">
+        <div class="modal-box flex flex-col items-center justify-center">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="mb-2 text-2xl">เข้าสู่ระบบ</h3>
+            <form method="post" class="flex flex-col justify-center items-center">
+                <input class="input input-sm border-2 border-black my-4" type="text" name="username" placeholder="ชื่อผู้ใช้">
+                <input class="input input-sm border-2 border-black mb-4" type="password" name="password" placeholder="รหัสผ่าน">
+                <button class="btn" name="login">เข้าสู่ระบบ</button>
+            </form>
+
+        </div>
+    </dialog>
+
+    <!-- profile -->
+    <dialog id="profile" class="modal justify-end items-start top-14 pr-10">
+        <div class="modal-box flex flex-col items-center justify-center w-96">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+
+            <h3 class="mb-2 text-2xl">จัดการโปรไฟล์</h3>
             <?php if ($_SESSION['role'] == 1) { ?>
-                <a class="logout" href="./admin.php">
-                    <h4>จัดการ</h4>
-                </a>
+                <a class="text-base my-2 btn btn-primary" href="./admin.php">โปรไฟล์</a>
             <?php
             }
             ?>
-            <a class="logout" href="logout.php">
-                <h4>ออกจากระบบ</h4>
-            </a>
+            <a class="text-base my-2 btn btn-error" href="logout.php">ออกจากระบบ</a>
         </div>
-    </div>
+    </dialog>
 
-    <div class="popup">
-        <div class="popup-content">
-            <div class="close">
-                <i class="fa-regular fa-circle-xmark fa-xl"></i>
-            </div>
-            <form method="post">
-                <h3>เข้าสู่ระบบ</h3>
-                <input type="text" placeholder="Username" name="username" required>
-                <input type="password" placeholder="Password" name="password" required>
-                <button type="submit" name="login">เข้าสู่ระบบ</button>
-            </form>
-        </div>
-    </div>
 </body>
-<script src="js/navbar.js"></script>
 
 </html>
