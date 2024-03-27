@@ -31,7 +31,7 @@
         ?>
                 <div class="card bg-base-200 rounded-xl h-auto shadow-md">
                     <div class="card-body items-center justify-center">
-                        <img class="shadow-lg rounded-lg w-52" src="<?= $imgUrl ?>" alt="">
+                        <img class="shadow-lg rounded-lg h-40 w-52" src="<?= $imgUrl ?>" alt="">
                         <h3 class="card-title"><?= $row['name'] ?></h3>
                         <form class="card-body justify-center items-center p-0 w-full" action="index.php?get=<?php echo $row['p_id'] ?>" method="post">
                             <input class="input input-md w-48 border-2 border-black " type="number" name="amount[]" min="0" max="<?= $row['amount'] ?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">

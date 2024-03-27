@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.8.0/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -13,103 +14,97 @@
     @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap');
 
     * {
-        font-family: 'Kanit', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
 </style>
 
-<body>
-    <nav class="navbar justify-between bg-base-200 shadow-lg">
-        <div class="flex">
-            <a class="btn btn-ghost text-xl">logo</a>
-        </div>
-        <ul class="flex">
-            <li><a class="text-base mx-2 btn btn-ghost" href="">ติดต่อ</a></li>
-            <li><a class="text-base mx-2 btn btn-ghost" href="">รายการยืม</a></li>
-            <li><a class="text-base mx-2 btn btn-ghost" onclick="login.showModal()" href="#">เข้าสู่ระบบ</a></li>
-            <li><a class="text-base mx-2 btn btn-ghost" onclick="profile.showModal()" href="#">pro</a></li>
-        </ul>
-    </nav>
 
-    <dialog id="login" class="modal">
-        <div class="modal-box flex flex-col items-center justify-center">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="mb-2 text-2xl">เข้าสู่ระบบ</h3>
-            <input class="input input-sm border-2 border-black my-4" type="text" name="" placeholder="ชื่อผู้ใช้">
-            <input class="input input-sm border-2 border-black mb-4" type="password" name="" placeholder="รหัสผ่าน">
-            <button class="btn">เข้าสู่ระบบ</button>
+<body class="bg-slate-100">
 
-        </div>
-    </dialog>
+    <div class="drawer flex flex-row">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col items-center h-screen w-20 bg-gray-950 text-white">
+            <div class="mb-8 mt-4 text-4xl">
+                <i class='bx bx-book'></i>
+            </div>
 
-    <dialog id="profile" class="modal justify-end items-start top-14 pr-10">
-        <div class="modal-box flex flex-col items-center justify-center w-96">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="mb-2 text-2xl">จัดการโปรไฟล์</h3>
-            <a class="text-base my-2 btn btn-primary" href="">โปรไฟล์</a>
-            <a class="text-base my-2 btn btn-error" href="">ออกจากระบบ</a>
-        </div>
-    </dialog>
+            <div class="my-2 text-xl cursor-pointer flex justify-center items-center w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                <i class='bx bx-grid-alt'></i>
+            </div>
 
-    <div class="grid grid-cols-4 gap-4 my-8 mx-8">
-        <div class="card bg-base-200 rounded-xl h-auto shadow-md">
-            <div class="card-body items-center justify-center">
-                <img class="shadow-lg rounded-lg w-46" src="img/pexels-math-90946.jpg" alt="">
-                <div class="card-title">asdw</div>
-                <input class="rounded-md border-none px-1 mb-1 h-8" type="number">
-                <div class="card-actions justify-center w-full">
-                    <button class="btn w-24 text-lg shadow-xl">ยืม</button>
-                </div>
+            <div class="my-2 text-xl cursor-pointer flex justify-center items-center w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                <i class='bx bx-plus'></i>
+            </div>
+
+            <div class="my-2 text-xl cursor-pointer flex justify-center items-center w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                <i class='bx bx-history'></i>
+            </div>
+
+            <div class="my-2 text-xl cursor-pointer flex justify-center items-center w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                <i class='bx bx-cog'></i>
             </div>
         </div>
-        <div class="card bg-base-200 rounded-xl h-auto shadow-md">
-            <div class="card-body items-center justify-center">
-                <img class="shadow-lg rounded-lg w-46" src="img/pexels-math-90946.jpg" alt="">
-                <div class="card-title">asdw</div>
-                <input class="rounded-md border-none px-1 mb-1 h-8" type="number">
-                <div class="card-actions justify-center w-full">
-                    <button class="btn w-24 text-lg shadow-xl">ยืม</button>
-                </div>
-            </div>
-        </div>
-        <div class="card bg-base-200 rounded-xl h-auto shadow-md">
-            <div class="card-body items-center justify-center">
-                <img class="shadow-lg rounded-lg w-46" src="img/pexels-math-90946.jpg" alt="">
-                <div class="card-title">asdw</div>
-                <input class="rounded-md border-none px-1 mb-1 h-8" type="number">
-                <div class="card-actions justify-center w-full">
-                    <button class="btn w-24 text-lg shadow-xl">ยืม</button>
-                </div>
-            </div>
-        </div>
-        <div class="card bg-base-200 rounded-xl h-auto shadow-md">
-            <div class="card-body items-center justify-center">
-                <img class="shadow-lg rounded-lg w-46" src="img/pexels-math-90946.jpg" alt="">
-                <div class="card-title">asdw</div>
-                <input class="rounded-md border-none px-1 mb-1 h-8" type="number">
-                <div class="card-actions justify-center w-full">
-                    <button class="btn w-24 text-lg shadow-xl">ยืม</button>
-                </div>
-            </div>
-        </div>
-        <div class="card bg-base-200 rounded-xl h-auto shadow-md">
-            <div class="card-body items-center justify-center">
-                <img class="shadow-lg rounded-lg w-46" src="img/pexels-math-90946.jpg" alt="">
-                <div class="card-title">asdw</div>
-                <input class="rounded-md border-none px-1 mb-1 h-8" type="number">
-                <div class="card-actions justify-center w-full">
-                    <button class="btn w-24 text-lg shadow-xl">ยืม</button>
-                </div>
-            </div>
-        </div>
-           
 
+        <label for="my-drawer" class="drawer-button h-9">
+            <div class="my-5 ml-3">
+                <div class="flex justify-start items-start text-4xl">
+                    <i class="bx bx-menu cursor-pointer"></i>
+                    <span class="font-bold text-2xl ml-3">ระบบยืมคืน</span>
+                </div>
+            </div>
+        </label>
+
+
+        <div class="drawer-side">
+            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <ul class="menu justify-between flex-col p-0 w-64 bg-gray-950 text-white min-h-full ">
+
+                <div class="flex flex-col justify-center items-center">
+
+                    <div class="drawer-content flex flex-col items-center justify-center w-full bg-gray-950 text-white">
+
+                        <div class="flex w-full justify-center items-center gap-9 mb-8 mt-4">
+                            <i class='bx bx-book text-4xl'></i>
+                            <span class="text-xl font-bold">ระบบยืมคืน</span>
+                        </div>
+
+                        <div class="my-2 text-xl cursor-pointer flex justify-center items-center w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                            <a href="" class="flex flex-row justify-around items-center gap-8 w-full h-full">
+                                    <i class='bx bx-grid-alt w-20'></i>
+                                    <span class="">สถานะ</span>
+                            </a>
+                        </div>
+
+                        <div class="my-2 text-xl cursor-pointer flex justify-center items-center gap-8 w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                            <i class='bx bx-plus'></i>
+                            <span>เพิ่ม</span>
+                        </div>
+
+                        <div class="my-2 text-xl cursor-pointer flex justify-center items-center gap-8 w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                            <i class='bx bx-history'></i>
+                            <span>ประวัติ</span>
+                        </div>
+
+                        <div class="my-2 text-xl cursor-pointer flex justify-center items-center gap-8 w-full h-14 transition ease-in-out duration-200 hover:bg-gray-800">
+                            <i class='bx bx-cog'></i>
+                            <span>ตั้งค่า</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flex justify-center items-center w-full h-20 bg-gray-800">
+                    <div class="flex items-center justify-around w-full h-full text-xl">
+                        <span>admin</span>
+                        <i class='bx bx-home'></i>
+                        <i class='bx bx-log-out'></i>
+                    </div>
+                </div>
+            </ul>
+        </div>
     </div>
 
-    </div>
 </body>
 
 </html>
