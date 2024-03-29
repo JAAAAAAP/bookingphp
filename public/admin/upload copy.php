@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../controller/photo.php";
-require('../controller/user.php');
+require "../../controller/photo.php";
+require('../../controller/user.php');
 $dbcon = new User;
 $photo = new photo;
 $targetDir = "./img/";

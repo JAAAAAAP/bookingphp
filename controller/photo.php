@@ -7,7 +7,7 @@ if (isset($_GET['del'])) {
     if(isset($_GET['img'])){
         $products_id = $_GET['del'];
         $img = $_GET['img'];
-        $pathimg = realpath("../src/img/");
+        $pathimg = realpath("../public/img/");
         $filename = $pathimg . "/" . $img;
     
     
