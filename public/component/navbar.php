@@ -1,35 +1,4 @@
 <?php
-session_start();
-require "../controller/photo.php";
-require('../controller/user.php');
-$dbcon = new User;
-$photo = new photo;
-
-if (isset($_POST['login'])) {
-    $username = ($_POST['username']);
-    $password = ($_POST['password']);
-
-    $qr = $dbcon->login($username, $password);
-    $row = mysqli_num_rows($qr);
-
-    if ($row == 1) {
-        $rs = mysqli_fetch_assoc($qr);
-        $_SESSION['id'] = $rs['user_id'];
-        $_SESSION['user'] = $rs['user'];
-        $_SESSION['role'] = $rs['role'];
-        if ($_SESSION['role'] == 0) {
-            // echo "<script>alert('User Login Succes');</script>";
-            echo "<script>window.location.href='index.php';</script>";
-        }
-        if ($_SESSION['role'] == 1) {
-            // echo "<script>alert('Admin Login Succes');</script>";
-            echo "<script>window.location.href='./admin/admin.php';</script>";
-        }
-    } else {
-        echo "<script>alert('Somrthing went wrong');</script>";
-        echo "<script>window.location.href='index.php';</script>";
-    }
-}
 
 
 
@@ -42,8 +11,6 @@ if (isset($_POST['login'])) {
         <?php
         if (isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
-            $qr = $dbcon->callfecth($id);
-            $rs = mysqli_fetch_assoc($qr);
         ?>
             <li><a class="text-base mx-2 btn btn-ghost uppercase" onclick="profile.showModal()"><?= $_SESSION['user'] ?></a></li>
             <li><a class="text-base mx-2 btn btn-ghost">รายการยืม</a></li>
@@ -65,9 +32,9 @@ if (isset($_POST['login'])) {
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
         <h3 class="mb-2 text-2xl">เข้าสู่ระบบ</h3>
-        <form method="post" class="flex flex-col justify-center items-center">
-            <input class="input input-sm border-2 border-black my-4" type="text" name="username" placeholder="ชื่อผู้ใช้">
-            <input class="input input-sm border-2 border-black mb-4" type="password" name="password" placeholder="รหัสผ่าน">
+        <form method="post" action="/jaa/bookingphp/controller/login.php" class="flex flex-col justify-center items-center">
+            <input class="input input-sm border-2 border-black my-4" type="text" name="username" placeholder="ชื่อผู้ใช้" required>
+            <input class="input input-sm border-2 border-black mb-4" type="password" name="password"  placeholder="รหัสผ่าน" required>
             <button class="btn" name="login">เข้าสู่ระบบ</button>
         </form>
 

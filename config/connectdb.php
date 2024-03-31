@@ -1,25 +1,15 @@
 <?php
-define('DB_SERVER', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'borrowphp');
+$dsn = "mysql:host=localhost;dbname=borrowphp;charset=utf8";
+$username = "root";
+$password = "";
+
+
 $path = "http://localhost/jaa/bookingphp/public/";
 
 
-
-class DB_con
-{
-    public function __construct()
-    {
-        $this->dbcon = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-        if (!$this->dbcon) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-    }
-    
-    public function query($sql)
-    {
-        $query = mysqli_query($this->dbcon, $sql);
-        return $query;
-    }
+try {
+    $conn = new PDO($dsn, $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
 }

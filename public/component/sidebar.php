@@ -1,3 +1,11 @@
+<?php 
+session_start();
+
+
+
+
+
+?>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap');
 
@@ -80,15 +88,15 @@
 
             <ul class="menu menu-horizontal items-center justify-around h-20 font-bold bg-gray-800">
                 <div>
-                    <h4 class="text-sm uppercase">10</h4>
+                    <h4 class="text-sm uppercase"><?php echo $_SESSION['user'] ?></h4>
                 </div>
                 <li>
-                    <a href="index.php" class="tooltip tooltip-info" data-tip="หน้าบ้าน">
+                    <a href="/jaa/bookingphp/public/index.php" class="tooltip tooltip-info" data-tip="หน้าบ้าน">
                         <i class='bx bx-home bx-sm'></i>
                     </a>
                 </li>
                 <li>
-                    <a href="logout.php" class="tooltip tooltip-error" data-tip="ออกจากระบบ">
+                    <a href="/jaa/bookingphp/public/logout.php" class="tooltip tooltip-error" data-tip="ออกจากระบบ">
                         <i class='bx bx-log-out bx-sm'></i>
                     </a>
                 </li>

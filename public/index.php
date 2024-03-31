@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +31,9 @@
     <div class="grid grid-cols-4 gap-4 m-8">
         <?php
         $sql = $photo->fecthphoto();
-        if ($sql->num_rows > 0) {
-            while ($row = $sql->fetch_assoc()) {
+        $rs = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if ($sql->rowCount() > 0) {
+            foreach ($rs as $row) {
                 $imgUrl = './img/' . $row['img'];
         ?>
                 <div class="card bg-base-200 rounded-xl h-auto shadow-md">
@@ -50,7 +59,7 @@
         $id = $_GET['get'];
         $amount = $_POST['amount'];
         $sql = $photo->callid($id);
-        $rowproducts = $sql->fetch_assoc();
+        // $rowproducts = $sql->fetch_assoc();
 
     ?>
         <div class="basket">
@@ -65,6 +74,7 @@
         </div>
     <?php } ?>
 
+    
 </body>
 
 </html>
