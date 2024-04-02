@@ -59,6 +59,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                             $query = $conn->prepare($sql);
                             $query->execute();
                             $rs = $query->fetchAll(PDO::FETCH_ASSOC);
+                            $conn = null;
 
 
 
@@ -80,7 +81,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
                                         <!-- Edit -->
                                         <td>
-                                            
+
                                             <label for="edit<?php echo $i ?>" type="submit" class="btn btn-info text-white"><i class='bx bxs-edit bx-md'></i></label>
                                             <input type="checkbox" id="edit<?php echo $i ?>" class="modal-toggle" />
                                             <div class="modal" role="dialog">
@@ -152,6 +153,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
         </div>
 
     </div>
+
+    <?php echo include "../../plugin/tailwind.php" ?>
 </body>
 
 </html>

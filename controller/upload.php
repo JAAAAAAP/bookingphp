@@ -32,7 +32,6 @@ if (isset($_POST['submit'])) {
             $ext = $name[1];
             $imgname = round(microtime(true) * 1000);
             $newfilename = $imgname . "." . $ext;
-
             $tmpname = $_FILES['fileupload']['tmp_name'];
             $moveto = $targetDir . $newfilename;
 

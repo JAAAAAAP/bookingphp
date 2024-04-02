@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
 
 
@@ -25,16 +27,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 </style>
 
 <body>
+
     <!-- navbar -->
     <?php include("./component/navbar.php") ?>
 
     <div class="grid grid-cols-4 gap-4 m-8">
         <?php
-         $sql = "SELECT * FROM products";
-         $query = $conn->prepare($sql);
-         $query->execute();
-         $rs = $query->fetchAll(PDO::FETCH_ASSOC);
-
+        $sql = "SELECT * FROM products";
+        $query = $conn->prepare($sql);
+        $query->execute();
+        $rs = $query->fetchAll(PDO::FETCH_ASSOC);
+        $conn = null;
 
         if ($query->rowCount() > 0) {
             foreach ($rs as $row) {
@@ -44,8 +47,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                     <div class="card-body items-center justify-center">
                         <img class="shadow-lg rounded-lg h-40 w-52" src="<?= $imgUrl ?>" alt="">
                         <h3 class="card-title"><?= $row['name'] ?></h3>
-                        <form class="card-body justify-center items-center p-0 w-full" action="index.php?get=<?php echo $row['p_id'] ?>" method="post">
-                            <input class="input input-md w-48 border-2 border-black " type="number" name="amount[]" min="0" max="<?= $row['amount'] ?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">
+
+                        <form class="card-body justify-center items-center p-0 w-full" action="../controller/order.php" method="post">
+                            <input type="hidden" name="id" value="<?php echo $row['p_id'] ?>">
+                            <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>">
+                            <input class="input input-md w-48 border-2 border-black " type="number" name="amount" min="1" max="<?= $row['amount'] ?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">
                             <div class="card-actions justify-center">
                                 <button class="btn w-24 text-lg shadow-xl" type="submit" name="submit">ยืม</button>
                             </div>
@@ -58,27 +64,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
         ?>
     </div>
 
-    <?php
-    if (isset($_POST['submit'])) {
-        $id = $_GET['get'];
-        $amount = $_POST['amount'];
-        $sql = $photo->callid($id);
-        // $rowproducts = $sql->fetch_assoc();
 
-    ?>
-        <div class="basket">
-            <div class="amount">
-                <h5>5</h5>
-            </div>
-            <div class="basket-item">
-                <a href="borrow.php">
-                    <i class="fa-solid fa-basket-shopping fa-2xl"></i>
-                </a>
-            </div>
-        </div>
-    <?php } ?>
 
-    
+
+    <?php echo include "../plugin/tailwind.php" ?>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 
@@ -25,10 +25,12 @@
         </div>
         <div class="flex flex-col w-screen">
             <div class="h-auto"><?php include "../component/menu.php" ?></div>
-            
+
         </div>
 
     </div>
+
+    <?php echo include "../../plugin/tailwind.php" ?>
 </body>
 
 </html>
