@@ -88,24 +88,24 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
                                                     <h3 class="font-bold text-black text-lg">แก้ไขข้อมูล</h3>
 
-                                                    <form action="/jaa/bookingphp/controller/update.php" method="get">
+                                                    <form action="/jaa/bookingphp/controller/update.php" method="post" enctype="multipart/form-data">
 
                                                         <div class="flex items-center justify-center mt-6">
                                                             <label class="form-control w-full max-w-xs font-bold text-base text-black">
                                                                 <div class="label p-0">
                                                                     <span class="label-text">ชื่อ</span>
                                                                 </div>
-                                                                <input type="text" placeholder="<?php echo $row['name'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
+                                                                <input type="text" name="name" placeholder="<?php echo $row['name'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
 
                                                                 <div class="label p-0">
                                                                     <span class="label-text">จำนวน</span>
                                                                 </div>
-                                                                <input type="number" placeholder="<?php echo $row['amount'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
+                                                                <input type="number" name="amount" placeholder="<?php echo $row['amount'] ?>" min="0" class="input input-bordered w-full max-w-xs mb-4" />
 
                                                                 <div class="label p-0">
                                                                     <span class="label-text">ไฟล์รูป</span>
                                                                 </div>
-                                                                <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
+                                                                <input type="file" name="filename" accept="image/jpg, image/png ,image/jpeg" class="file-input file-input-bordered w-full max-w-xs" />
 
                                                                 <h2 class="flex items-start mt-4">รูปปัจจุบัน</h2>
                                                                 <figure class="flex flex-col items-center justify-center w-full">
@@ -115,9 +115,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                                                             </label>
                                                         </div>
 
-                                                        <!-- <input type="hidden" name="id" value=""> -->
                                                         <div class="modal-action">
-                                                            <button type="submit" name="product" value="<?php echo $row['p_id'] ?>" class="btn btn-success text-white">ยืนยันการแก้ไข</button>
+                                                            <input type="hidden" name="id" value="<?php echo $row['p_id'] ?>">
+                                                            <button type="submit" name="submit" class="btn btn-success text-white">ยืนยันการแก้ไข</button>
                                                             <label for="edit<?php echo $i ?>" class="btn btn-error text-white">ปิด</label>
                                                         </div>
 
@@ -128,14 +128,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
                                         <!-- Delete -->
                                         <td>
-                                            <label for="deletes" class="btn btn-error text-white"><i class='bx bxs-trash bx-md'></i></label>
-                                            <input type="checkbox" id="deletes" class="modal-toggle" />
-                                            <div class="modal" role="dialog">
+                                            <label for="deletes<?php echo $i ?>" class="btn btn-error text-white"><i class='bx bxs-trash bx-md'></i></label>
+                                            <input type="checkbox" id="deletes<?php echo $i ?>" class="modal-toggle" />
+                                            <div class="modal text-black text-lg" role="dialog">
                                                 <div class="modal-box">
-                                                    <h3 class="font-bold text-lg">Hello!</h3>
-                                                    <p class="py-4">This modal works with a hidden checkbox!</p>
-                                                    <div class="modal-action">
-                                                        <label for="deletes" class="btn">Close!</label>
+                                                    <h3 class="font-bold text-lg">ลบข้อมูล</h3>
+                                                    <p class="py-4">ต้องการลบข้อมูลของ " <span class="text-red-600"><?php echo $row['name'] ?></span> " ใช่ไหม</p>
+                                                    <div class="modal-action m-0">
+                                                        <a href="/jaa/bookingphp/controller/delete.php?del=<?php echo $row['p_id'] ?>" class="btn btn-error text-white">ลบ</a>
+                                                        <label for="deletes<?php echo $i ?>" class="btn btn-info text-white">ยกเลิก</label>
                                                     </div>
                                                 </div>
                                             </div>

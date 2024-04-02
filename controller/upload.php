@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
         $product_name = $_POST['product_name'];
         $amount = $_POST['amount'];
 
-        // Your file upload code here
+        
         $filename = $_FILES['fileupload']['name'];
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $allowed = array('jpg', 'png', 'jpeg');
@@ -39,13 +39,14 @@ if (isset($_POST['submit'])) {
             if (move_uploaded_file($tmpname, $moveto)) {
                 chmod($targetDir . $newfilename, 0777);
                 try {
-                    $sql = "INSERT INTO products(name,amount,img,time) VALUE (:product_name, :amount, :img ,NOW())";
+                    $sql = "INSERT INTO products(name,amount,img,upload_time) VALUE (:product_name, :amount, :img ,NOW())";
                     $query = $conn->prepare($sql);
                     $query->bindParam(":product_name", $product_name, PDO::PARAM_STR);
                     $query->bindParam(":amount", $amount, PDO::PARAM_INT);
                     $query->bindParam(":img", $newfilename, PDO::PARAM_STR);
                     $query->execute();
                     echo "<script>window.location.href='/jaa/bookingphp/public/admin/upload.php'</script>";
+                    echo $filename;
                 } catch (PDOException $e) {
                     echo $e->getMessage();
                 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
 
 
 
@@ -30,9 +30,13 @@ session_start();
 
     <div class="grid grid-cols-4 gap-4 m-8">
         <?php
-        $sql = $photo->fecthphoto();
-        $rs = $sql->fetchAll(PDO::FETCH_ASSOC);
-        if ($sql->rowCount() > 0) {
+         $sql = "SELECT * FROM products";
+         $query = $conn->prepare($sql);
+         $query->execute();
+         $rs = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+        if ($query->rowCount() > 0) {
             foreach ($rs as $row) {
                 $imgUrl = './img/' . $row['img'];
         ?>
