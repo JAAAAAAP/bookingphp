@@ -1,11 +1,12 @@
 
 <?php
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
-include_once('../plugin/script.php');
 
 
 if (isset($_POST['login'])) {
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
+    include_once('../plugin/script.php');
+    
     $username = $_POST['username'];
     $password = $_POST['password'];
     try {
@@ -34,6 +35,7 @@ if (isset($_POST['login'])) {
                     });
                 </script>";
                 header("refresh:1.5; url=/jaa/bookingphp/public/index.php");
+                $conn = null;
             }
 
             if ($_SESSION['role'] == 1) {
@@ -48,6 +50,7 @@ if (isset($_POST['login'])) {
                 });
                 </script>";
                 header("refresh:1.5; url=/jaa/bookingphp/public/admin/admin.php");
+                $conn = null;
             }
         } else {
             echo "<script>
@@ -61,6 +64,7 @@ if (isset($_POST['login'])) {
                 });
                 </script>";
             header("refresh:1.5; url=/jaa/bookingphp/public/index.php");
+            $conn = null;
         }
     } catch (PDOException $e) {
         echo $e->getMessage();

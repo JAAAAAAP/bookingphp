@@ -1,6 +1,4 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
-include_once('../plugin/script.php');
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -8,6 +6,9 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 if (isset($_SESSION['id'])) {
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
+    include_once('../plugin/script.php');
+    
     if (isset($_POST['submit'])) {
         $user_id = $_SESSION['id'];
         $product_id = $_POST['id'];
@@ -25,7 +26,7 @@ if (isset($_SESSION['id'])) {
 
         if ($oder_query) {
             echo "<script>window.location.href='/jaa/bookingphp/public/index.php'</script>";
-            exit();
+            $conn = null;
         }
     }
 } else {
@@ -40,5 +41,5 @@ if (isset($_SESSION['id'])) {
             });
         </script>";
     header("refresh:1.5; url=/jaa/bookingphp/public/index.php");
-    exit();
+    $conn = null;
 }

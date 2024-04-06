@@ -1,10 +1,11 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
-include_once('../plugin/script.php');
 
 
 // ตรวจสอบว่ามีการอัปโหลดไฟล์หรือไม่
 if (isset($_POST['submit'])) {
+  include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
+  include_once('../plugin/script.php');
+  
   $id = $_POST['id'];
   $productname = $_POST['name'];
   $amount = $_POST['amount'];

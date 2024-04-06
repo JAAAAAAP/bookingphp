@@ -9,18 +9,23 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>upload</title>
-    <?php include "../../plugin/plug.php" ?>
+    <?php include_once "../../plugin/plug.php" ?>
 
 </head>
 
 <body class="bg-slate-100">
+    
+    <div class="flex justify-center absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
+        <span class="loading loading-dots loading-lg text-white "></span>
+    </div>
+
     <div class="flex row">
         <div class="flex flex-col sticky top-0 h-screen w-auto">
-            <?php include "../component/sidebar.php" ?>
+            <?php include_once "../component/sidebar.php" ?>
         </div>
 
         <div class="flex flex-col w-screen">
-            <div class="h-auto"><?php include "../component/menu.php" ?></div>
+            <div class="h-auto"><?php include_once "../component/menu.php" ?></div>
 
             <div class="flex flex-col items-center justify-center">
                 <div class="flex w-11/12">
@@ -35,6 +40,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
                         <button name="submit" class="btn btn-success text-white">เพิ่มข้อมูล</button>
 
+                        <!-- loading -->
                     </form>
 
                 </div>
@@ -154,7 +160,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
     </div>
 
-    <?php echo include "../../plugin/tailwind.php" ?>
+    <?php include "../../plugin/tailwind.php" ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('form').addEventListener('submit', function() {
+                document.getElementById('loading-spinner').classList.remove('hidden');
+            });
+        });
+    </script>
 </body>
 
 </html>

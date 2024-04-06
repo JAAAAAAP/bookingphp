@@ -15,7 +15,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
-    <?php include "../plugin/plug.php" ?>
+    <?php include_once "../plugin/plug.php" ?>
 </head>
 
 <style>
@@ -29,7 +29,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 <body>
 
     <!-- navbar -->
-    <?php include("./component/navbar.php") ?>
+    <?php include_once("./component/navbar.php") ?>
 
     <div class="grid grid-cols-4 gap-4 m-8">
         <?php
@@ -67,7 +67,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
 
 
-    <?php echo include "../plugin/tailwind.php" ?>
+    <?php include_once "../plugin/tailwind.php" ?>
 </body>
 
 </html>

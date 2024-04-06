@@ -21,7 +21,7 @@ $display = ($count > 0) ?  " " : "hidden" ;
                 <div class="indicator">
                     
                     <span class="indicator-item badge badge-primary top-1 right-2 <?php echo $display ?>" ><?php echo $count ?></span>
-                    <a href="" class="text-base mx-2 btn btn-ghost uppercase">รายการยืม</a>
+                    <a href="\jaa\bookingphp\public\order.php" class="text-base mx-2 btn btn-ghost uppercase">รายการยืม</a>
                 </div>
             </li>
         <?php

@@ -1,9 +1,10 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
-include_once('../plugin/script.php');
 
 
 if (isset($_GET['del'])) {
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
+    include_once('../plugin/script.php');
+    
     $id = $_GET['del'];
     $sql_delete = "INSERT INTO bin(p_id,name,amount,img,upload_time,delete_time) SELECT p_id,name,amount,img,upload_time, NOW() FROM products WHERE p_id = :id";
     $query_delete = $conn->prepare("$sql_delete");
