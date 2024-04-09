@@ -14,9 +14,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 </head>
 
 <body class="bg-slate-100">
-    
-    <div class="flex justify-center absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
-        <span class="loading loading-dots loading-lg text-white "></span>
+
+    <div class="flex  justify-center absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
+        <span class="loading top-0 loading-dots loading-lg text-white "></span>
     </div>
 
     <div class="flex row">
@@ -66,12 +66,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                             $query->execute();
                             $rs = $query->fetchAll(PDO::FETCH_ASSOC);
                             $conn = null;
-
+                            
 
 
                             foreach ($rs as $row) {
                                 $imgUrl = '../img/' . $row['img'];
-
+                                $_SESSION['amount_product'] = $row['amount'];
 
 
                             ?>
@@ -166,6 +166,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('form').addEventListener('submit', function() {
                 document.getElementById('loading-spinner').classList.remove('hidden');
+              
             });
         });
     </script>

@@ -60,10 +60,10 @@ $display = ($count > 0) ?  " " : "hidden" ;
 
         <h3 class="mb-2 text-2xl">จัดการโปรไฟล์</h3>
         <?php if ($_SESSION['role'] == 1) { ?>
-            <a class="text-base my-2 btn btn-primary" href="./admin/admin.php">โปรไฟล์</a>
+            <a class="text-base text-white my-2 btn btn-primary" href="./admin/admin.php">โปรไฟล์</a>
         <?php
         }
         ?>
-        <a class="text-base my-2 btn btn-error" href="logout.php">ออกจากระบบ</a>
+        <a class="text-base text-white my-2 btn btn-error" href="logout.php">ออกจากระบบ</a>
     </div>
 </dialog>
