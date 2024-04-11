@@ -20,7 +20,7 @@
 
 <body class="bg-slate-100">
     <div class="flex row">
-        <div class="flex flex-col sticky top-0 h-screen w-auto">
+        <div class="flex flex-col mr-20 h-screen w-auto">
             <?php include_once "../component/sidebar.php" ?>
         </div>
         <div class="flex flex-col w-screen">

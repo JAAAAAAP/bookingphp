@@ -31,7 +31,17 @@ if (isset($_SESSION['id'])) {
             }
         } else {
 
-            echo "error i nahee";
+            echo "<script>
+            $(document).ready(function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณากรอกจำนวน',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            });
+        </script>";
+            header("refresh:1.5; url=/jaa/bookingphp/public/index.php");
             $conn = null;
         }
     }

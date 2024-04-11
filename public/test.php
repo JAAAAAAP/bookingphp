@@ -1,6 +1,48 @@
 <?php include "../plugin/plug.php" ?>
 
-<form action="/jaa/bookingphp/controller/update.php" method="get">
-    <input type="hidden" name="id" value="1">
-    <button type="submit" name="submit">asdw</button>
-</form>
+<a href="" id="home">asdsd</a>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<h1>a</h1>
+<a href="#home">aaaa</a>

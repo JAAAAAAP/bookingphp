@@ -26,6 +26,7 @@ $currentDate = date("Y-m-d");
 </style>
 
 <body>
+    <?php include "./component/navbar.php" ?>
     <div class="flex justify-center text-center w-full">
         <div class="w-11/12">
             <div class="divider divider-neutral font-bold text-xl">แบบฟอร์มรายการสำหรับยืม</div>
@@ -52,46 +53,54 @@ $currentDate = date("Y-m-d");
                         $query->bindParam(":id", $_SESSION['id'], PDO::PARAM_INT);
                         $query->execute();
                         $rs = $query->fetchAll(PDO::FETCH_ASSOC);
-                        $conn = null;
 
-
+                        // $product_sql = "SELECT * FROM products WHERE p_id = :id";
+                        // $product_query = $conn->prepare($product_sql);
+                        // $product_query->bindParam(":id", $rs['p_id'],PDO::PARAM_INT);
+                        // $product_query->execute();
+                        // $row_product = $product_query->fetchAll(PDO::FETCH_ASSOC);
+                        
 
                         foreach ($rs as $row) {
 
-
+                            $product_sql = "SELECT * FROM products WHERE p_id = :id";
+                            $product_query = $conn->prepare($product_sql);
+                            $product_query->bindParam(":id", $row['p_id'], PDO::PARAM_INT);
+                            $product_query->execute();
+                            $row_product = $product_query->fetch(PDO::FETCH_ASSOC);
 
 
                         ?>
                             <!-- row 1 -->
                             <tr class="text-black text-base border-b-2 border-black">
-                                <td class="border-r-2 border-black text-lg md:text-2xl"><?php echo $i++ ?>.</td>
-                                <td class=""><?php echo $row['product_name'] ?></td>
-                                <td class="border-x-2 border-black"><?php echo $row['amount'] ?></td>
+                                <td class="border-r-2 border-black text-lg md:text-2xl"><?= $i++ ?>.</td>
+                                <td class=""><?= $row['product_name'] ?></td>
+                                <td class="border-x-2 border-black"><?= $row['amount'] ?></td>
 
                                 <!-- Edit -->
                                 <td class="w-10 hidden md:table-cell">
-                                    <label for="edit<?php echo $i ?>" type="submit" class="btn btn-info btn-md text-white text-center"><i class='bx bxs-edit bx-sm'></i></label>
-                                    <input type="checkbox" id="edit<?php echo $i ?>" class="modal-toggle" />
+                                    <label for="edit<?= $i ?>" type="submit" class="btn btn-info btn-md text-white text-center"><i class='bx bxs-edit bx-sm'></i></label>
+                                    <input type="checkbox" id="edit<?= $i ?>" class="modal-toggle" />
                                     <div class="modal" role="dialog">
                                         <div class="modal-box">
 
                                             <h3 class="font-bold text-black text-lg">แก้ไขข้อมูล</h3>
 
-                                            <form action="" method="post">
+                                            <form action="../controller/order_update.php" method="post">
 
                                                 <div class="flex items-center justify-center mt-6">
                                                     <label class="form-control w-full max-w-xs font-bold text-base text-black">
                                                         <div class="label p-0">
                                                             <span class="label-text">จำนวน</span>
                                                         </div>
-                                                        <input type="number" name="amount" placeholder="จำนวนคงเหลือในคลัง <?php echo "  " .$_SESSION['amount_product'] ?>" min="0" max="<?php echo $_SESSION['amount_product'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
+                                                        <input type="number" name="amount" placeholder="จำนวนคงเหลือในคลัง <?= "  " . $row_product['amount'] ?>" min="1" max="<?= $row_product['amount'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
                                                     </label>
                                                 </div>
 
                                                 <div class="modal-action">
-                                                    <input type="hidden" name="id" value="<?php echo $row['p_id'] ?>">
+                                                    <input type="hidden" name="id" value="<?= $row['o_id'] ?>">
                                                     <button type="submit" name="submit" class="btn btn-success text-white">ยืนยันการแก้ไข</button>
-                                                    <label for="edit<?php echo $i ?>" class="btn btn-error text-white">ปิด</label>
+                                                    <label for="edit<?= $i ?>" class="btn btn-error text-white">ปิด</label>
                                                 </div>
 
                                             </form>
@@ -101,15 +110,15 @@ $currentDate = date("Y-m-d");
 
                                 <!-- deletes -->
                                 <td class="border-l-2 border-black hidden md:table-cell">
-                                    <label for="deletes<?php echo $i ?>" class="btn btn-error btn-md text-white text-center"><i class='bx bxs-trash bx-sm'></i></label>
-                                    <input type="checkbox" id="deletes<?php echo $i ?>" class="modal-toggle" />
+                                    <label for="deletes<?= $i ?>" class="btn btn-error btn-md text-white text-center"><i class='bx bxs-trash bx-sm'></i></label>
+                                    <input type="checkbox" id="deletes<?= $i ?>" class="modal-toggle" />
                                     <div class="modal text-black text-lg" role="dialog">
                                         <div class="modal-box">
                                             <h3 class="font-bold text-lg">ลบข้อมูล</h3>
-                                            <p class="py-4">ต้องนำของ " <span class="text-red-600"><?php echo $row['product_name'] ?></span> " ออกใช่ไหม?</p>
+                                            <p class="py-4">ต้องนำของ " <span class="text-red-600"><?= $row['product_name'] ?></span> " ออกใช่ไหม?</p>
                                             <div class="modal-action m-0">
-                                                <a href="" class="btn btn-error text-white">ใช่</a>
-                                                <label for="deletes<?php echo $i ?>" class="btn btn-info text-white">ยกเลิก</label>
+                                            <a id="<?= $row['o_id'] ?>" class="delete btn btn-error text-white">ลบ</a>
+                                                <label for="deletes<?= $i ?>" class="btn btn-info text-white">ยกเลิก</label>
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +149,7 @@ $currentDate = date("Y-m-d");
                     <form action="">
 
                         <h3 class=" font-bold mt-4 ">ชื่อผู้ยืม :</h3>
-                        <h3 class=" text-lg bg-white rounded-md mt-2 pl-4 p-2"><?php echo $_SESSION['user'] ?></h3>
+                        <h3 class=" text-lg bg-white rounded-md mt-2 pl-4 p-2"><?= $_SESSION['user'] ?></h3>
 
                         <h3 class=" font-bold my-2 ">เบอร์โทร :</h3>
                         <label class="input input-bordered flex items-center gap-2">
@@ -162,10 +171,10 @@ $currentDate = date("Y-m-d");
                         </select>
 
                         <h3 class=" font-bold my-2 ">วันที่ยืม</h3>
-                        <input type="date" min="<?php echo $currentDate; ?>" class="input w-full max-w-xs">
+                        <input type="date" min="<?= $currentDate; ?>" class="input w-full max-w-xs">
 
                         <h3 class=" font-bold my-2 ">วันที่คืน</h3>
-                        <input type="date" min="<?php echo $currentDate; ?>" class="input w-full max-w-xs">
+                        <input type="date" min="<?= $currentDate; ?>" class="input w-full max-w-xs">
 
                         <div class="font-bold my-2 text-error">
                             <h1>*หมายเหตุ</h1>
@@ -184,7 +193,7 @@ $currentDate = date("Y-m-d");
                         </div>
 
                         <h3 class=" font-bold my-2 ">ลงชื่อ :</h3>
-                        <input type="text" class="input input-bordered w-full" />
+                        <input type="text" class="input input-bordered w-full" required />
                         <div class="text-end">
                             <button class="btn btn-success text-white mt-4 w-28" type="submit">ยืนยันการยืม</button>
 
@@ -199,6 +208,10 @@ $currentDate = date("Y-m-d");
 
 
     <?php include_once "../plugin/tailwind.php" ?>
+    <?php include_once "../plugin/script.php" ?>
+
+
+    <script src="./js/order.js"></script>
 </body>
 
 </html>

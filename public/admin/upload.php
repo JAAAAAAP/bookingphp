@@ -15,12 +15,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
 <body class="bg-slate-100">
 
-    <div class="flex  justify-center absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
+    <div class="flex  justify-center fixed top-0 absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
         <span class="loading top-0 loading-dots loading-lg text-white "></span>
     </div>
 
     <div class="flex row">
-        <div class="flex flex-col sticky top-0 h-screen w-auto">
+        <div class="flex flex-col mr-20 sticky top-0 h-full w-auto bg-slate-800">
             <?php include_once "../component/sidebar.php" ?>
         </div>
 
@@ -30,7 +30,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
             <div class="flex flex-col items-center justify-center">
                 <div class="flex w-11/12">
 
-                    <form class="form-control flex-row w-full justify-end items-end gap-4" method="post" action="/jaa/bookingphp/controller/upload.php" enctype="multipart/form-data" required>
+                    <form class="form-control flex-row w-full justify-end items-end gap-4" method="post" action="/jaa/bookingphp/controller/product_upload.php" enctype="multipart/form-data" required>
 
                         <input type="file" name="fileupload" accept="image/jpg, image/png ,image/jpeg" class="file-input file-input-bordered border-black w-full max-w-xs" required />
 
@@ -66,12 +66,12 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                             $query->execute();
                             $rs = $query->fetchAll(PDO::FETCH_ASSOC);
                             $conn = null;
-                            
+
 
 
                             foreach ($rs as $row) {
                                 $imgUrl = '../img/' . $row['img'];
-                                $_SESSION['amount_product'] = $row['amount'];
+                                
 
 
                             ?>
@@ -95,7 +95,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
                                                     <h3 class="font-bold text-black text-lg">แก้ไขข้อมูล</h3>
 
-                                                    <form action="/jaa/bookingphp/controller/update.php" method="post" enctype="multipart/form-data">
+                                                    <form action="/jaa/bookingphp/controller/product_update.php" method="post" enctype="multipart/form-data">
 
                                                         <div class="flex items-center justify-center mt-6">
                                                             <label class="form-control w-full max-w-xs font-bold text-base text-black">
@@ -107,7 +107,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                                                                 <div class="label p-0">
                                                                     <span class="label-text">จำนวน</span>
                                                                 </div>
-                                                                <input type="number" name="amount" placeholder="<?php echo $row['amount'] ?>" min="0" class="input input-bordered w-full max-w-xs mb-4" />
+                                                                <input type="number" name="amount" placeholder="<?php echo $row['amount']; ?>" min="0" class="input input-bordered w-full max-w-xs mb-4" />
 
                                                                 <div class="label p-0">
                                                                     <span class="label-text">ไฟล์รูป</span>
@@ -142,7 +142,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                                                     <h3 class="font-bold text-lg">ลบข้อมูล</h3>
                                                     <p class="py-4">ต้องการลบข้อมูลของ " <span class="text-red-600"><?php echo $row['name'] ?></span> " ใช่ไหม</p>
                                                     <div class="modal-action m-0">
-                                                        <a href="/jaa/bookingphp/controller/delete.php?del=<?php echo $row['p_id'] ?>" class="btn btn-error text-white">ลบ</a>
+                                                        <a id="<?= $row['p_id'] ?>" class="delete btn btn-error text-white">ลบ</a>
                                                         <label for="deletes<?php echo $i ?>" class="btn btn-info text-white">ยกเลิก</label>
                                                     </div>
                                                 </div>
@@ -161,12 +161,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
     </div>
 
     <?php include "../../plugin/tailwind.php" ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <?php include "../../plugin/script.php" ?>
+    <script src="../js/product.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('form').addEventListener('submit', function() {
                 document.getElementById('loading-spinner').classList.remove('hidden');
-              
+                document.getElementById('loading-spinner').classList.remove('absolute');
+
             });
         });
     </script>

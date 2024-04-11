@@ -17,7 +17,7 @@ session_start();
 <div class="drawer flex flex-row">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
 
-    <div class="drawer-content flex flex-col items-center sticky top-0 h-screen w-20 bg-gray-950 text-white">
+    <div class="drawer-content flex flex-col items-center fixed top-0 h-screen w-20 bg-gray-950 text-white">
         <div class="mb-8 mt-4 text-4xl">
             <i class='bx bx-book'></i>
         </div>
@@ -29,7 +29,7 @@ session_start();
             </li>
 
             <li>
-                <a href="" class="tooltip tooltip-right w-full " data-tip="เพิ่มรายการ">
+                <a href="upload.php" class="tooltip tooltip-right w-full " data-tip="เพิ่มรายการ">
                     <i class='bx bx-plus bx-sm'></i>
                 </a>
             </li>
@@ -66,7 +66,7 @@ session_start();
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="upload.php">
                         <i class='bx bx-plus bx-sm'></i>
                         <span class="ml-4">เพิ่มรายการ</span>
                     </a>

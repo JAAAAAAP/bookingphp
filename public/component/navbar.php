@@ -31,6 +31,7 @@ $display = ($count > 0) ?  " " : "hidden" ;
         <?php
         }
         ?>
+        <li><a href="\jaa\bookingphp\public\index.php" class="text-base mx-2 btn btn-ghost">หน้าแรก</a></li>
         <li><a href="#" class="text-base mx-2 btn btn-ghost">ติดต่อ</a></li>
     </ul>
 </nav>
