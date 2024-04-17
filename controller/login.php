@@ -1,14 +1,12 @@
-
 <?php
 session_start();
-
-
-if (isset($_POST['login'])) {
+var_dump($_POST);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
-    include_once('../plugin/script.php');
+
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
     
-    $username = $_POST['username'];
-    $password = $_POST['password'];
     try {
         $sql = "SELECT * FROM user WHERE user = :user AND password = :password";
         $checkdata = $conn->prepare($sql);
@@ -17,56 +15,28 @@ if (isset($_POST['login'])) {
         $checkdata->execute();
         $row = $checkdata->fetch(PDO::FETCH_ASSOC);
 
-        if ($checkdata->rowCount() > 0) {
+        if ($row) {
             $_SESSION['id'] = $row['user_id'];
             $_SESSION['user'] = $row['user'];
             $_SESSION['role'] = $row['role'];
 
             if ($_SESSION['role'] == 0) {
-
-                echo "<script>
-                    $(document).ready(function() {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'เข้าสู่ระบบสำเร็จ',
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                    });
-                </script>";
-                header("refresh:1.5; url=/jaa/bookingphp/public/index.php");
-                $conn = null;
+                $response['redirect'] = '/jaa/bookingphp/public/index.php';
+            } elseif ($_SESSION["role"] == 1) {
+                $response['redirect'] = '/jaa/bookingphp/public/admin/admin.php';
             }
-
-            if ($_SESSION['role'] == 1) {
-                echo "<script>
-                    $(document).ready(function() {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'เข้าสู่ระบบสำเร็จ',
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                });
-                </script>";
-                header("refresh:1.5; url=/jaa/bookingphp/public/admin/admin.php");
-                $conn = null;
-            }
+            http_response_code(200);
+            echo json_encode($response);
+            exit();
         } else {
-            echo "<script>
-                $(document).ready(function() {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'มีบางอย่างไม่ถูกต้อง',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                });
-                </script>";
-            header("refresh:1.5; url=/jaa/bookingphp/public/index.php");
-            $conn = null;
+            http_response_code(401);
+            echo json_encode(array("error" => "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"));
+            exit();
         }
     } catch (PDOException $e) {
-        echo $e->getMessage();
+        http_response_code(500);
+        echo json_encode(array("error" => $e->getMessage()));
+        exit();
     }
 }
+?>

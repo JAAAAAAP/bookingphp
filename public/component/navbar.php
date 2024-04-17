@@ -4,7 +4,7 @@ $query = $conn->prepare($sql);
 $query->bindParam(":id", $_SESSION['id'], PDO::PARAM_INT);
 $query->execute();
 $count = $query->fetchColumn();
-$display = ($count > 0) ?  " " : "hidden" ;
+$display = ($count > 0) ?  " " : "hidden";
 
 ?>
 <nav class="navbar sticky top-0 z-50 justify-between bg-base-200 shadow-lg">
@@ -18,9 +18,9 @@ $display = ($count > 0) ?  " " : "hidden" ;
         ?>
             <li><a class="text-base mx-2 btn btn-ghost uppercase" onclick="profile.showModal()"><?= $_SESSION['user'] ?></a></li>
             <li>
-                <div class="indicator">
-                    
-                    <span class="indicator-item badge badge-primary top-1 right-2 <?php echo $display ?>" ><?php echo $count ?></span>
+                <div class="indicator <?php echo $display ?>">
+
+                    <span class="indicator-item badge badge-primary top-1 right-2 <?php echo $display ?>"><?php echo $count ?></span>
                     <a href="\jaa\bookingphp\public\order.php" class="text-base mx-2 btn btn-ghost uppercase">รายการยืม</a>
                 </div>
             </li>
@@ -43,10 +43,10 @@ $display = ($count > 0) ?  " " : "hidden" ;
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
         <h3 class="mb-2 text-2xl">เข้าสู่ระบบ</h3>
-        <form method="post" action="/jaa/bookingphp/controller/login.php" class="flex flex-col justify-center items-center">
+        <form id="formlogin" method="post" class="flex flex-col justify-center items-center">
             <input class="input input-sm border-2 border-black my-4" type="text" name="username" placeholder="ชื่อผู้ใช้" required>
             <input class="input input-sm border-2 border-black mb-4" type="password" name="password" placeholder="รหัสผ่าน" required>
-            <button class="btn" name="login">เข้าสู่ระบบ</button>
+            <button type="submit" class="btn" >เข้าสู่ระบบ</button>
         </form>
 
     </div>
@@ -68,3 +68,5 @@ $display = ($count > 0) ?  " " : "hidden" ;
         <a class="text-base text-white my-2 btn btn-error" href="logout.php">ออกจากระบบ</a>
     </div>
 </dialog>
+
+

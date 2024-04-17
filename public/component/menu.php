@@ -57,7 +57,7 @@ $count = $query->fetchColumn();
         <!-- จำนวนของ -->
 
         <div class="flex justify-center items-center rounded-2xl w-1/4 h-40 bg-base-100 shadow-xl">
-            <a href="upload.php">
+            <a href="admin.php?pt=upload">
                 <figure class="flex items-center justify-center mt-3 text-7xl">
                     <i class='bx bx-archive-in'></i>
                 </figure>

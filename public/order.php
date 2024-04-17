@@ -48,7 +48,7 @@ $currentDate = date("Y-m-d");
 
                         <?php
                         $i = 1;
-                        $sql = "SELECT * FROM oder_product WHERE user_id = :id";
+                        $sql = "SELECT o.o_id,o.p_id,o.user_id,p.name,o.amount FROM products as p INNER JOIN oder_product as o on p.p_id = o.p_id WHERE user_id = :id";
                         $query = $conn->prepare($sql);
                         $query->bindParam(":id", $_SESSION['id'], PDO::PARAM_INT);
                         $query->execute();
@@ -59,7 +59,7 @@ $currentDate = date("Y-m-d");
                         // $product_query->bindParam(":id", $rs['p_id'],PDO::PARAM_INT);
                         // $product_query->execute();
                         // $row_product = $product_query->fetchAll(PDO::FETCH_ASSOC);
-                        
+
 
                         foreach ($rs as $row) {
 
@@ -74,7 +74,7 @@ $currentDate = date("Y-m-d");
                             <!-- row 1 -->
                             <tr class="text-black text-base border-b-2 border-black">
                                 <td class="border-r-2 border-black text-lg md:text-2xl"><?= $i++ ?>.</td>
-                                <td class=""><?= $row['product_name'] ?></td>
+                                <td class=""><?= $row['name'] ?></td>
                                 <td class="border-x-2 border-black"><?= $row['amount'] ?></td>
 
                                 <!-- Edit -->
@@ -115,9 +115,9 @@ $currentDate = date("Y-m-d");
                                     <div class="modal text-black text-lg" role="dialog">
                                         <div class="modal-box">
                                             <h3 class="font-bold text-lg">ลบข้อมูล</h3>
-                                            <p class="py-4">ต้องนำของ " <span class="text-red-600"><?= $row['product_name'] ?></span> " ออกใช่ไหม?</p>
+                                            <p class="py-4">ต้องนำของ " <span class="text-red-600"><?= $row['name'] ?></span> " ออกใช่ไหม?</p>
                                             <div class="modal-action m-0">
-                                            <a id="<?= $row['o_id'] ?>" class="delete btn btn-error text-white">ลบ</a>
+                                                <a id="<?= $row['o_id'] ?>" class="delete btn btn-error text-white">ลบ</a>
                                                 <label for="deletes<?= $i ?>" class="btn btn-info text-white">ยกเลิก</label>
                                             </div>
                                         </div>

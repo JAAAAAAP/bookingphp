@@ -1,11 +1,12 @@
 <?php
+require $_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/vendor/autoload.php';
 
-
+use Intervention\Image\ImageManagerStatic as Image;
 // ตรวจสอบว่ามีการอัปโหลดไฟล์หรือไม่
 if (isset($_POST['submit'])) {
   include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
   include_once('../plugin/script.php');
-  
+
   $id = $_POST['id'];
   $productname = $_POST['name'];
   $amount = $_POST['amount'];
@@ -34,14 +35,13 @@ if (isset($_POST['submit'])) {
       header("refresh:1.5; url=/jaa/bookingphp/public/admin/upload.php");
     } else {
       $targetDir = "../public/img/";
-      $name = explode(".", $filename);
-      $ext = $name[1];
-      $imgname = round(microtime(true) * 1000);
-      $newfilename = $imgname . "." . $ext;
-
       $tmpname = $_FILES['filename']['tmp_name'];
-      $moveto = $targetDir . $newfilename;
-      move_uploaded_file($tmpname, $moveto);
+      $image = Image::make($tmpname)->resize(800, null, function ($constraint) {
+        $constraint->aspectRatio();
+      })->encode('jpg', 50);
+
+      $newfilename = time() . '_' . $filename;
+      $image->save($targetDir . $newfilename);
 
       if (!empty($name)) {
         unlink($targetDir . $product['img']);

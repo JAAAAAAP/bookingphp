@@ -1,9 +1,6 @@
 <?php
-
-
-
-
-
+session_start();
+$_SESSION["role"] == "1" ? " " :  header("Location:/jaa/bookingphp/public/index.php") . exit;
 ?>
 
 
@@ -25,7 +22,9 @@
         </div>
         <div class="flex flex-col w-screen">
             <div class="h-auto"><?php include_once "../component/menu.php" ?></div>
-
+            <?php if (isset($_GET['pt']) && $_GET['pt'] == "upload") {
+                include_once "./upload.php";
+            } ?>
         </div>
 
     </div>

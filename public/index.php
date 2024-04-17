@@ -51,7 +51,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
                         <form class="card-body justify-center items-center p-0 w-full" action="../controller/order.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $row['p_id'] ?>">
-                            <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>">
                             <input class="input input-md w-48 border-2 border-black " type="number" name="amount" min="1" max="<?= $row['amount'] ?>" placeholder="จำนวนที่เหลือ <?= $row['amount'] ?>">
                             <div class="card-actions justify-center">
                                 <button class="btn w-24 text-lg shadow-xl" type="submit" name="submit">ยืม</button>
