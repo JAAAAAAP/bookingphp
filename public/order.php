@@ -48,7 +48,7 @@ $currentDate = date("Y-m-d");
 
                         <?php
                         $i = 1;
-                        $sql = "SELECT o.o_id,o.p_id,o.user_id,p.name,o.amount FROM products as p INNER JOIN oder_product as o on p.p_id = o.p_id WHERE user_id = :id";
+                        $sql = "SELECT o.o_id,o.p_id,o.user_id,p.name,o.amount,o.status FROM products as p INNER JOIN oder_product as o on p.p_id = o.p_id WHERE user_id = :id AND o.status = 'รอดำเนินการ'";
                         $query = $conn->prepare($sql);
                         $query->bindParam(":id", $_SESSION['id'], PDO::PARAM_INT);
                         $query->execute();
@@ -60,81 +60,96 @@ $currentDate = date("Y-m-d");
                         // $product_query->execute();
                         // $row_product = $product_query->fetchAll(PDO::FETCH_ASSOC);
 
+                        if ($query->rowCount() > 0) {
+                            foreach ($rs as $row) {
 
-                        foreach ($rs as $row) {
-
-                            $product_sql = "SELECT * FROM products WHERE p_id = :id";
-                            $product_query = $conn->prepare($product_sql);
-                            $product_query->bindParam(":id", $row['p_id'], PDO::PARAM_INT);
-                            $product_query->execute();
-                            $row_product = $product_query->fetch(PDO::FETCH_ASSOC);
+                                $product_sql = "SELECT * FROM products WHERE p_id = :id";
+                                $product_query = $conn->prepare($product_sql);
+                                $product_query->bindParam(":id", $row['p_id'], PDO::PARAM_INT);
+                                $product_query->execute();
+                                $row_product = $product_query->fetch(PDO::FETCH_ASSOC);
 
 
                         ?>
-                            <!-- row 1 -->
-                            <tr class="text-black text-base border-b-2 border-black">
-                                <td class="border-r-2 border-black text-lg md:text-2xl"><?= $i++ ?>.</td>
-                                <td class=""><?= $row['name'] ?></td>
-                                <td class="border-x-2 border-black"><?= $row['amount'] ?></td>
 
-                                <!-- Edit -->
-                                <td class="w-10 hidden md:table-cell">
-                                    <label for="edit<?= $i ?>" type="submit" class="btn btn-info btn-md text-white text-center"><i class='bx bxs-edit bx-sm'></i></label>
-                                    <input type="checkbox" id="edit<?= $i ?>" class="modal-toggle" />
-                                    <div class="modal" role="dialog">
-                                        <div class="modal-box">
 
-                                            <h3 class="font-bold text-black text-lg">แก้ไขข้อมูล</h3>
+                                <!-- row 1 -->
+                                <tr class="text-black text-base border-b-2 border-black">
+                                    <td class="border-r-2 border-black text-lg md:text-2xl"><?= $i++ ?>.</td>
+                                    <td class=""><?= $row['name'] ?></td>
+                                    <td class="border-x-2 border-black"><?= $row['amount'] ?></td>
 
-                                            <form action="../controller/order_update.php" method="post">
+                                    <!-- Edit -->
+                                    <td class="w-10 hidden md:table-cell">
+                                        <label for="edit<?= $i ?>" type="submit" class="btn btn-info btn-md text-white text-center"><i class='bx bxs-edit bx-sm'></i></label>
+                                        <input type="checkbox" id="edit<?= $i ?>" class="modal-toggle" />
+                                        <div class="modal" role="dialog">
+                                            <div class="modal-box">
 
-                                                <div class="flex items-center justify-center mt-6">
-                                                    <label class="form-control w-full max-w-xs font-bold text-base text-black">
-                                                        <div class="label p-0">
-                                                            <span class="label-text">จำนวน</span>
-                                                        </div>
-                                                        <input type="number" name="amount" placeholder="จำนวนคงเหลือในคลัง <?= "  " . $row_product['amount'] ?>" min="1" max="<?= $row_product['amount'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
-                                                    </label>
-                                                </div>
+                                                <h3 class="font-bold text-black text-lg">แก้ไขข้อมูล</h3>
 
-                                                <div class="modal-action">
-                                                    <input type="hidden" name="id" value="<?= $row['o_id'] ?>">
-                                                    <button type="submit" name="submit" class="btn btn-success text-white">ยืนยันการแก้ไข</button>
-                                                    <label for="edit<?= $i ?>" class="btn btn-error text-white">ปิด</label>
-                                                </div>
+                                                <form action="../controller/order_update.php" method="post">
 
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
+                                                    <div class="flex items-center justify-center mt-6">
+                                                        <label class="form-control w-full max-w-xs font-bold text-base text-black">
+                                                            <div class="label p-0">
+                                                                <span class="label-text">จำนวน</span>
+                                                            </div>
+                                                            <input type="number" name="amount" placeholder="จำนวนคงเหลือในคลัง <?= "  " . $row_product['amount'] ?>" min="1" max="<?= $row_product['amount'] ?>" class="input input-bordered w-full max-w-xs mb-4" />
+                                                        </label>
+                                                    </div>
 
-                                <!-- deletes -->
-                                <td class="border-l-2 border-black hidden md:table-cell">
-                                    <label for="deletes<?= $i ?>" class="btn btn-error btn-md text-white text-center"><i class='bx bxs-trash bx-sm'></i></label>
-                                    <input type="checkbox" id="deletes<?= $i ?>" class="modal-toggle" />
-                                    <div class="modal text-black text-lg" role="dialog">
-                                        <div class="modal-box">
-                                            <h3 class="font-bold text-lg">ลบข้อมูล</h3>
-                                            <p class="py-4">ต้องนำของ " <span class="text-red-600"><?= $row['name'] ?></span> " ออกใช่ไหม?</p>
-                                            <div class="modal-action m-0">
-                                                <a id="<?= $row['o_id'] ?>" class="delete btn btn-error text-white">ลบ</a>
-                                                <label for="deletes<?= $i ?>" class="btn btn-info text-white">ยกเลิก</label>
+                                                    <div class="modal-action">
+                                                        <input type="hidden" name="id" value="<?= $row['o_id'] ?>">
+                                                        <button type="submit" name="submit" class="btn btn-success text-white btnupdate">ยืนยันการแก้ไข</button>
+                                                        <label for="edit<?= $i ?>" class="btn btn-error text-white">ปิด</label>
+                                                    </div>
+
+                                                </form>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <!-- Respont -->
-                                <td class="border-l-2 border-black w-12 p-0 md:hidden">
-                                    <label for="" class="btn btn-info btn-xs text-white text-center"><i class='bx bxs-edit bx-xs'></i></label>
-                                </td>
+                                    <!-- deletes -->
+                                    <td class="border-l-2 border-black hidden md:table-cell">
+                                        <label for="deletes<?= $i ?>" class="btn btn-error btn-md text-white text-center"><i class='bx bxs-trash bx-sm'></i></label>
+                                        <input type="checkbox" id="deletes<?= $i ?>" class="modal-toggle" />
+                                        <div class="modal text-black text-lg" role="dialog">
+                                            <div class="modal-box">
+                                                <h3 class="font-bold text-lg">ลบข้อมูล</h3>
+                                                <p class="py-4">ต้องนำของ " <span class="text-red-600"><?= $row['name'] ?></span> " ออกใช่ไหม?</p>
+                                                <div class="modal-action m-0">
+                                                    <a id="<?= $row['o_id'] ?>" class="delete btn btn-error text-white">ลบ</a>
+                                                    <label for="deletes<?= $i ?>" class="btn btn-info text-white">ยกเลิก</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
 
-                            </tr>
+                                    <!-- Respont -->
+                                    <td class="border-l-2 border-black w-12 p-0 md:hidden">
+                                        <label for="" class="btn btn-info btn-xs text-white text-center"><i class='bx bxs-edit bx-xs'></i></label>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                        } else {
+                            ?>
+
+                            <td class="border-r-2 border-black text-lg md:text-2xl">-</td>
+                            <td class="text-xl text-red-500 font-bold">ไม่มีรายการ</td>
+                            <td class="border-x-2 border-black">-</td>
+                            <td class="border-x-2 border-black">-</td>
+                            <td class="">-</td>
+
+                        <?php
+                        }
+                        ?>
 
 
 
 
-                        <?php } ?>
+
                     </tbody>
                 </table>
             </div>
@@ -146,7 +161,7 @@ $currentDate = date("Y-m-d");
                 <div class="flex flex-col w-3/4 text-start bg-gray-100 rounded-xl p-4">
                     <h1 class="font-bold text-center text-xl md:text-2xl">แบบฟอร์มกรอกข้อมูล</h1>
 
-                    <form action="">
+                    <form action="../controller/order_product.php" method="post">
 
                         <h3 class=" font-bold mt-4 ">ชื่อผู้ยืม :</h3>
                         <h3 class=" text-lg bg-white rounded-md mt-2 pl-4 p-2"><?= $_SESSION['user'] ?></h3>
@@ -154,50 +169,54 @@ $currentDate = date("Y-m-d");
                         <h3 class=" font-bold my-2 ">เบอร์โทร :</h3>
                         <label class="input input-bordered flex items-center gap-2">
                             <i class='bx bxs-phone bx-sm'></i>
-                            <input type="text" class="grow" placeholder="เบอร์โทรศัพท์" />
+                            <input type="tel" maxlength="11" class="grow" name="tel" placeholder="เบอร์โทรศัพท์" />
                         </label>
 
+
                         <h3 class=" font-bold my-2 ">นำไปใช้ที่ :</h3>
-                        <input type="text" class="input input-bordered w-full" />
+                        <input type="text" name="address" class="input input-bordered w-full" />
 
                         <h3 class=" font-bold my-2 ">อาจารย์ผู้สอน</h3>
-                        <input type="text" class="input input-bordered w-full" />
+                        <input type="text" name="teacher" class="input input-bordered w-full" />
 
                         <h3 class=" font-bold my-2 ">หน่วยงานสาขา :</h3>
-                        <select class="select select-bordered w-full max-w-xs">
+                        <select class="select select-bordered w-full max-w-xs" name="department">
                             <option disabled selected>หน่วยงานสาขา</option>
                             <option>ทดสอบ 1</option>
                             <option>ทดสอบ 2</option>
                         </select>
 
                         <h3 class=" font-bold my-2 ">วันที่ยืม</h3>
-                        <input type="date" min="<?= $currentDate; ?>" class="input w-full max-w-xs">
+                        <input type="date" min="<?= $currentDate; ?>" name="date-start" class="input w-full max-w-xs">
 
                         <h3 class=" font-bold my-2 ">วันที่คืน</h3>
-                        <input type="date" min="<?= $currentDate; ?>" class="input w-full max-w-xs">
+                        <input type="date" min="<?= $currentDate; ?>" name="date-end" class="input w-full max-w-xs">
 
                         <div class="font-bold my-2 text-error">
                             <h1>*หมายเหตุ</h1>
-                            <p class="ml-8">1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum quis neque laudantium odit, distinctio reprehenderit explicabo consequatur tempora ea officiis molestias! Ipsum doloribus ut repellendus modi repellat accusamus amet aliquid.</p>
+                            <p class="ml-8">1. แบบฟอร์มต่อฉบับนี้ เป็นแบบฟอร์มที่ใช้สำหรับยืม - คืน อุปกรณ์โสตทัศนูปกรณ์ภานในคณะครุศาสตร์เท่านั้น การนำอุปกรณ์ฯ จะต้องได้รับอนุญาติจากคณบดี</p>
                             <br>
-                            <p class="ml-8">2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis sint eveniet, eligendi laudantium minus hic? Iste at magnam quia optio nam consectetur cum autem, laudantium unde aliquam perferendis provident ratione.</p>
+                            <p class="ml-8">2. ก่อนนำอุปกรณ์ไปใช้ และก่อนนำส่งคืน กรุณาตรวจสอบ และนำส่งคืนให้ครบตามจำนวนที่ยืมทุกครั้ง</p>
                             <br>
-                            <p class="ml-8">3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti exercitationem unde consequatur eveniet. Illo id et consequatur soluta enim hic ratione temporibus similique molestias, nemo alias possimus dolorem, velit eveniet.</p>
+                            <p class="ml-8">3. ผู้ยืมจะต้องดูแลและรับผิดชอบอุปกรณ์ฯ ที่ยืมไปใช้ไม่ให้เกิดความเสียหายใดๆ</p>
 
                             <input type="checkbox" class="checkbox checkbox-sm ml-8 mt-2 text-center" required />
-                            <span class="relative ml-1 bottom-1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad eligendi iusto, velit et commodi totam hic culpa recusandae tempore explicabo fugit delectus impedit ratione, similique officiis consectetur repudiandae pariatur deserunt?</span>
+                            <span class="relative ml-1 bottom-1">ทั้งนี้ ข้าพเจ้าได้รับทราบและยินดีปฎิบัติตามระเบียบการขอใช้บริการอุปกรณ์โสตทัศนูปกรณ์ของคณะครุศาสตร์และดูแลรับผิดชอบจนกว่าจะส่งคืน</span>
                             <br>
                             <input type="checkbox" class="checkbox checkbox-sm ml-8 mt-2 text-center" required />
-                            <span class="relative ml-1 bottom-1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora excepturi eos quis? Harum repellendus natus ab totam laborum excepturi corrupti, culpa, perferendis cum dolorum quis numquam quod nulla delectus doloremque.</span>
+                            <span class="relative ml-1 bottom-1">ข้าพเจ้ายินดีรับผิดชอบต่อความเสียหายที่เกิดขึ้นกับอุปกรณ์ดังกล่าวทุกกรณี และยอมรับเงื่อนไขการขอใช้บริการ</span>
 
                         </div>
 
-                        <h3 class=" font-bold my-2 ">ลงชื่อ :</h3>
-                        <input type="text" class="input input-bordered w-full" required />
                         <div class="text-end">
-                            <button class="btn btn-success text-white mt-4 w-28" type="submit">ยืนยันการยืม</button>
-
+                            <?php if ($query->rowCount() > 0) { ?>
+                                <button id="formsubmit" class="btn btn-success text-white mt-4 w-28" name="submit" type="submit">ยืนยันการยืม</button>
+                            <?php } else { ?>
+                                <button id="formsubmit" class="btn btn-disabled btn-success text-white mt-4 w-28" name="submit" type="submit">ยืนยันการยืม</button>
+                            <?php } ?>
+                            
                         </div>
+
                     </form>
                 </div>
             </div>

@@ -13,7 +13,11 @@ $(document).on("click", ".delete", function () {
         title: "ลบข้อมูลสำเร็จ",
         timer: 1500,
         showConfirmButton: false,
-      });
+      }).then(
+        setInterval(function () {
+          window.location.reload();
+        }, 1500)
+      );
     },
     error: function (xhr, error) {
       Swal.fire({
@@ -21,7 +25,11 @@ $(document).on("click", ".delete", function () {
         title: "เกิดข้อผิดพลาดอะไรบางอย่าง",
         timer: 1500,
         showConfirmButton: false,
-      });
+      }).then(
+        setInterval(function () {
+          window.location.reload();
+        }, 1500)
+      );
     },
   });
 });

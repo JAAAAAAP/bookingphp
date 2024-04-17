@@ -15,7 +15,7 @@ if (isset($_SESSION['id'])) {
         $amount = $_POST['amount'];
 
         if ($amount != null) {
-            $order_sql = "INSERT INTO oder_product(p_id, user_id, amount) VALUES (:p_id, :user_id, :amount)";
+            $order_sql = "INSERT INTO oder_product(p_id, user_id, amount,status) VALUES (:p_id, :user_id, :amount,'รอดำเนินการ')";
             $oder_query = $conn->prepare($order_sql);
             $oder_query->bindParam(":p_id", $product_id, PDO::PARAM_INT);
             $oder_query->bindParam(":user_id", $user_id, PDO::PARAM_INT);

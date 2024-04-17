@@ -29,7 +29,7 @@ $count = $query->fetchColumn();
     <div class="flex flex-row mx-4 mt-4 gap-6 justify-center items-center">
         <!-- จำนวนคนที่ยืม -->
         <div class="flex justify-center items-center rounded-2xl w-1/4 h-40 bg-base-100 shadow-xl">
-            <a href="">
+            <a href="admin.php?pt=status">
                 <figure class="flex items-center justify-center mt-3 text-7xl">
                     <i class='bx bx-user'></i>
                 </figure>
@@ -43,7 +43,7 @@ $count = $query->fetchColumn();
         <!-- เลยกำหนด -->
 
         <div class="flex justify-center items-center rounded-2xl w-1/4 h-40 bg-base-100 shadow-xl">
-            <a href="">
+            <a href="admin.php?pt=status">
                 <figure class="flex items-center justify-center mt-3 text-7xl">
                     <i class='bx bx-time-five'></i>
                 </figure>

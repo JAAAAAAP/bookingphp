@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 
@@ -21,19 +21,19 @@
         </div>
         <ul class="menu justify-center items-center gap-6">
             <li>
-                <a href="" class="tooltip tooltip-right w-full " data-tip="สถานะ">
+                <a href="admin.php?pt=status" class="tooltip tooltip-right w-full " data-tip="สถานะ">
                     <i class='bx bx-grid-alt bx-sm'></i>
                 </a>
             </li>
 
             <li>
-                <a href="upload.php" class="tooltip tooltip-right w-full " data-tip="เพิ่มรายการ">
+                <a href="admin.php?pt=upload" class="tooltip tooltip-right w-full " data-tip="เพิ่มรายการ">
                     <i class='bx bx-plus bx-sm'></i>
                 </a>
             </li>
 
             <li>
-                <a href="" class="tooltip tooltip-right w-full " data-tip="ประวัติ">
+                <a href="admin.php?pt=history" class="tooltip tooltip-right w-full " data-tip="ประวัติ">
                     <i class='bx bx-history bx-sm'></i>
                 </a>
             </li>
@@ -64,13 +64,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="upload.php">
+                    <a href="admin.php?pt=upload">
                         <i class='bx bx-plus bx-sm'></i>
                         <span class="ml-4">เพิ่มรายการ</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="admin.php?pt=history">
                         <i class='bx bx-history bx-sm'></i>
                         <span class="ml-4">ประวัติ</span>
                     </a>

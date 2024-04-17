@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT COUNT(*) FROM oder_product WHERE user_id = :id";
+$sql = "SELECT COUNT(*) FROM oder_product WHERE user_id = :id AND status = 'รอดำเนินการ' ";
 $query = $conn->prepare($sql);
 $query->bindParam(":id", $_SESSION['id'], PDO::PARAM_INT);
 $query->execute();

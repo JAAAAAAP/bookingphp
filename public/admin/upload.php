@@ -16,9 +16,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 <body class="bg-slate-100">
 
     <!-- loading -->
-    <div class="flex  justify-center fixed top-0 absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
-        <span class="loading top-0 loading-dots loading-lg text-white "></span>
-    </div>
+    
 
     <div class="flex flex-col items-center justify-center">
         <div class="flex w-11/12">
