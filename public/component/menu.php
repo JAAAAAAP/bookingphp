@@ -7,7 +7,17 @@ $query = $conn->prepare($sql);
 $query->execute();
 $count = $query->fetchColumn();
 
+$group_sql = "SELECT DISTINCT group_id FROM oder_product";
+$group_query = $conn->prepare($group_sql);
+$group_query->execute();
+$group_rs = $group_query->fetchAll(PDO::FETCH_ASSOC);
+$num_groups = count($group_rs);
 
+$exit_sql = "SELECT group_id FROM oder_product WHERE status = 'เลยกำหนด' ";
+$exit_query = $conn->prepare($exit_sql);
+$exit_query->execute();
+$exit_rs = $exit_query->fetchAll(PDO::FETCH_ASSOC);
+$num_exit = count($exit_rs);
 ?>
 
 
@@ -35,7 +45,7 @@ $count = $query->fetchColumn();
                 </figure>
                 <div class="card-body items-center text-center p-0">
                     <h2 class="card-title">จำนวนคนที่ยืม</h2>
-                    <p class="font-bold text-xl">10</p>
+                    <p class="font-bold text-xl"><?= $num_groups ?></p>
                 </div>
             </a>
         </div>
@@ -49,7 +59,7 @@ $count = $query->fetchColumn();
                 </figure>
                 <div class="card-body items-center text-center p-0">
                     <h2 class="card-title">เลยกำหนด</h2>
-                    <p class="font-bold text-xl">10</p>
+                    <p class="font-bold text-xl"><?= $num_exit ?></p>
                 </div>
             </a>
         </div>

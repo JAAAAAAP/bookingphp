@@ -103,7 +103,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                         <tbody class="text-center items-center h-40">
                             <!-- Table -->
                             <tr class="border-b-2">
-                                <th class="text-2xl"><?php echo $i++ ?>.</th>
+                                <th class="text-xl"><?php echo $i++ ?>.</th>
                                 <td class="text-center text-xl">
                                     <span>ชื่อ : <?php echo $row['name'] ?></span>
                                     <br>

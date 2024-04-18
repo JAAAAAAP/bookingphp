@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="drawer flex flex-row">
+<div class="drawer flex flex-row z-50">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
 
     <div class="drawer-content flex flex-col items-center fixed top-0 h-screen w-20 bg-gray-950 text-white">
