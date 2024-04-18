@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
                       });
                   });
               </script>";
-      header("refresh:1.5; url=/jaa/bookingphp/public/admin/upload.php");
+      header("refresh:1.5; url=/jaa/bookingphp/public/admin/admin.php?pt=upload");
     } else {
       $targetDir = "../public/img/";
       $tmpname = $_FILES['filename']['tmp_name'];
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
       $newfilename = time() . '_' . $filename;
       $image->save($targetDir . $newfilename);
 
-      if (!empty($name)) {
+      if (!empty($image)) {
         unlink($targetDir . $product['img']);
       }
     }
@@ -97,7 +97,7 @@ if (isset($_POST['submit'])) {
             });
           });
         </script>";
-  header("refresh:1.5; url=/jaa/bookingphp/public/admin/upload.php");
+  header("refresh:1.5; url=/jaa/bookingphp/public/admin/admin.php?pt=upload");
 }
    
    

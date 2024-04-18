@@ -6,6 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +33,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
     <?php include_once("./component/navbar.php") ?>
 
     <div class="grid grid-cols-4 gap-4 m-8">
-
         <?php
         $sql = "SELECT * FROM products";
         $query = $conn->prepare($sql);

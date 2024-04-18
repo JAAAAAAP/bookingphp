@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
     if (isset($_POST['product_name']) && isset($_POST['amount'])) {
         $product_name = $_POST['product_name'];
         $amount = $_POST['amount'];
+        $sn_product = $_POST['sn_product'];
 
 
         $filename = $_FILES['fileupload']['name'];
@@ -40,11 +41,12 @@ if (isset($_POST['submit'])) {
             if ($image->save($targetDir . $newfilename)) {
                 // chmod($targetDir . $newfilename, 0777);
                 try {
-                    $sql = "INSERT INTO products(name,amount,img,upload_time) VALUE (:product_name, :amount, :img ,NOW())";
+                    $sql = "INSERT INTO products(name,amount,img,sn_products,upload_time) VALUE (:product_name, :amount, :img,:sn_products ,NOW())";
                     $query = $conn->prepare($sql);
                     $query->bindParam(":product_name", $product_name, PDO::PARAM_STR);
                     $query->bindParam(":amount", $amount, PDO::PARAM_INT);
                     $query->bindParam(":img", $newfilename, PDO::PARAM_STR);
+                    $query->bindParam(":sn_products", $sn_product, PDO::PARAM_STR);
                     $query->execute();
                     echo '<script>document.getElementById("loading-spinner").classList.add("hidden");</script>';
                     echo "<script>window.location.href='/jaa/bookingphp/public/admin/admin.php?pt=upload'</script>";

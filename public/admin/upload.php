@@ -16,37 +16,72 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 <body class="bg-slate-100">
 
     <!-- loading -->
-    
+
 
     <div class="flex flex-col items-center justify-center">
         <div class="flex w-11/12">
+            <div class="flex w-full justify-end">
+                <label for="add" class="btn btn-success text-white">เพิ่มข้อมูล</label>
+                <input type="checkbox" id="add" class="modal-toggle" />
 
-            <form class="form-control flex-row w-full justify-end items-end gap-4" method="post" action="/jaa/bookingphp/controller/product_upload.php" enctype="multipart/form-data" required>
+                <div class="modal" role="dialog">
 
-                <input type="file" name="fileupload" accept="image/jpg, image/png ,image/jpeg" class="file-input file-input-bordered border-black w-full max-w-xs" required />
+                    <div class="flex  justify-center fixed top-0 absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
+                        <span class="loading top-0 loading-dots loading-lg text-white "></span>
+                    </div>
 
-                <input type="text" name="product_name" placeholder="ชื่อ" class="input input-bordered border-black w-full max-w-xs" required />
+                    <div class="modal-box">
+                        <h3 class="font-bold text-lg text-center">เพิ่มข้อมูลครุภัณฑ์</h3>
 
-                <input type="number" name="amount" placeholder="จำนวน" min="0" class="input input-bordered border-black w-full max-w-xs" required />
+                        <form action="/jaa/bookingphp/controller/product_upload.php" method="post" enctype="multipart/form-data">
+                            <div class="flex items-center justify-center mt-6">
+                                <label class="form-control w-full max-w-xs font-bold text-base text-black">
+                                    <div class="label p-0">
+                                        <span class="label-text">เลขครุภัณฑ์</span>
+                                    </div>
+                                    <input type="text" name="sn_product" placeholder="เลขครุภัณฑ์" class="input input-bordered border-black w-full max-w-xsinput mb-4" required />
 
-                <button name="submit" class="btn btn-success text-white">เพิ่มข้อมูล</button>
+                                    <div class="label p-0">
+                                        <span class="label-text">ชื่อ</span>
+                                    </div>
+                                    <input type="text" name="product_name" placeholder="ชื่อ" class="input input-bordered border-black w-full max-w-xs mb-4" required />
 
-            </form>
+                                    <div class="label p-0">
+                                        <span class="label-text">จำนวน</span>
+                                    </div>
+                                    <input type="number" name="amount" placeholder="จำนวน" min="0" class="input input-bordered border-black w-full max-w-xs mb-4" required />
+
+                                    <div class="label p-0">
+                                        <span class="label-text">ไฟล์รูป</span>
+                                    </div>
+                                    <input type="file" name="fileupload" accept="image/jpg, image/png ,image/jpeg" class="file-input file-input-bordered border-black w-full max-w-xs" required />
+
+                                </label>
+
+                            </div>
+                            <div class="modal-action">
+                                <button type="submit" name="submit" class="btn btn-success text-white">เพิ่มข้อมูล</button>
+                                <label for="add" class="btn btn-error text-white">ปิด</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
         <div class="flex w-11/12 justify-center items-center mt-4">
             <div class="overflow-x-auto w-full border-2 rounded-xl border-gray-400 text-gray-600">
-                <table class="table-fixed justify-center items-center w-full ">
+                <table class="table-fixed text-center justify-center items-center w-full ">
                     <!-- head -->
                     <thead class="border-b-2 border-gray-400 h-16 ">
                         <tr class="bg-slate-200">
-                            <th>ลำดับ</th>
-                            <th>ชื่อ</th>
-                            <th>รูป</th>
-                            <th>จำนวนคงเหลือ</th>
-                            <th>แก้ไข</th>
-                            <th>ลบ</th>
+                            <th class="w-12">No.</th>
+                            <th class="w-96">รายละเอียดอุปกรณ์</th>
+                            <th class="w-40">รูป</th>
+                            <th class="">จำนวนคงเหลือ</th>
+                            <th class="">แก้ไข</th>
+                            <th class="">ลบ</th>
                         </tr>
                     </thead>
                     <?php
@@ -65,15 +100,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 
 
                     ?>
-                        <tbody class="text-center items-center h-96">
+                        <tbody class="text-center items-center h-40">
                             <!-- Table -->
                             <tr class="border-b-2">
-                                <th><?php echo $i++ ?></th>
-                                <td><?php echo $row['name'] ?></td>
-                                <td>
-                                    <figure class="flex w-full justify-center items-center"><img class="h-40 w-40" src="<?php echo $imgUrl ?>" alt=""></figure>
+                                <th class="text-2xl"><?php echo $i++ ?>.</th>
+                                <td class="text-center text-xl">
+                                    <span>ชื่อ : <?php echo $row['name'] ?></span>
+                                    <br>
+                                    <span class="">หมายเลขครุภัณฑ์ : <?php echo $row['sn_products'] ?></span>
                                 </td>
-                                <td><?php echo $row['amount'] ?></td>
+                                <td>
+                                    <figure class="flex w-full h-28 justify-center items-center"><img class="h-28 w-40" src="<?php echo $imgUrl ?>" alt=""></figure>
+                                </td>
+                                <td class="w-16 text-xl"><?php echo $row['amount'] ?></td>
 
                                 <!-- Edit -->
                                 <td>

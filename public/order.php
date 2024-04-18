@@ -37,7 +37,7 @@ $currentDate = date("Y-m-d");
                     <thead class="">
                         <tr class="text-slate-700 text-sm border-b-2 border-black bg-slate-200 md:text-base">
                             <th class="w-12 border-r-2 border-black">No.</th>
-                            <th class=" ">รายการยืม</th>
+                            <th class=" ">รายละเอียด รายการยืม</th>
                             <th class="w-10 border-x-2 border-black md:w-28">จำนวน</th>
                             <th class="w-6 hidden md:table-cell">แก้ไขจำนวน</th>
                             <th class="w-10 border-l-2 border-black hidden md:table-cell">นำออก</th>
@@ -48,7 +48,7 @@ $currentDate = date("Y-m-d");
 
                         <?php
                         $i = 1;
-                        $sql = "SELECT o.o_id,o.p_id,o.user_id,p.name,o.amount,o.status FROM products as p INNER JOIN oder_product as o on p.p_id = o.p_id WHERE user_id = :id AND o.status = 'รอดำเนินการ'";
+                        $sql = "SELECT o.o_id,o.p_id,o.user_id,p.name,o.amount,o.status,p.sn_products FROM products as p INNER JOIN oder_product as o on p.p_id = o.p_id WHERE user_id = :id AND o.status = 'รอดำเนินการ'";
                         $query = $conn->prepare($sql);
                         $query->bindParam(":id", $_SESSION['id'], PDO::PARAM_INT);
                         $query->execute();
@@ -76,7 +76,11 @@ $currentDate = date("Y-m-d");
                                 <!-- row 1 -->
                                 <tr class="text-black text-base border-b-2 border-black">
                                     <td class="border-r-2 border-black text-lg md:text-2xl"><?= $i++ ?>.</td>
-                                    <td class=""><?= $row['name'] ?></td>
+                                    <td class="">
+                                        <span>ชื่อ : <?= $row['name'] ?></span>
+                                        <br>
+                                        <span>หมายเลขครุภัณฑ์ : <?= $row['sn_products'] ?></span>
+                                    </td>
                                     <td class="border-x-2 border-black"><?= $row['amount'] ?></td>
 
                                     <!-- Edit -->
@@ -214,7 +218,7 @@ $currentDate = date("Y-m-d");
                             <?php } else { ?>
                                 <button id="formsubmit" class="btn btn-disabled btn-success text-white mt-4 w-28" name="submit" type="submit">ยืนยันการยืม</button>
                             <?php } ?>
-                            
+
                         </div>
 
                     </form>

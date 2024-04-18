@@ -17,9 +17,7 @@ $_SESSION["role"] == "1" ? " " :  header("Location:/jaa/bookingphp/public/index.
 
 <body class="bg-slate-100">
 
-    <div class="flex  justify-center fixed top-0 absolute w-screen h-screen z-50 bg-gray-900/50 hidden" id="loading-spinner">
-        <span class="loading top-0 loading-dots loading-lg text-white "></span>
-    </div>
+    
 
     <div class="flex row">
         <div class="flex flex-col mr-20 h-screen w-auto">
