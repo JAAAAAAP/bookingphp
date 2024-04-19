@@ -3,7 +3,7 @@
 
 if (isset($_POST['program']) && $_POST['program'] === 'del') {
     include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
-    // include_once('../plugin/script.php');
+    include_once('../plugin/script.php');
 
     $id = $_POST['id'];
     $delete = "DELETE FROM oder_product WHERE o_id = :id";
