@@ -49,6 +49,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
             ?>
                 <div class="card w-full bg-base-100 shadow-xl mb-8 border-4 ">
                     <div class="card-body">
+                        <a href="..\controller\approve_delete.php?group=<?= $group['group_id'] ?>" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-xl">✕</a>
                         <div class="text-xl font-bold">
                             <h1>ใบที่ <?= $i++ ?></h1>
                         </div>
@@ -73,11 +74,11 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                                         <td><?= $product['name']; ?></td>
                                         <td><?= $product['amount']; ?></td>
                                         <td>
-                                            <div tabindex="0" role="button" class="btn btn-md btn-<?= $product['status'] === "อนุมัติแล้ว" || $product['status'] === "กำลังยืม" ? "success" : ($product['status'] === "ไม่อนุมัติ" || $product['status'] === "เลยกำหนด" ? "error" : "warning") ?> text-white">
+                                            <div tabindex="0" role="button" class="btn btn-md btn-<?= $product['status'] === "อนุมัติแล้ว" || $product['status'] === "กำลังยืม" || $product['status'] === "คืนแล้ว" ? "success" : ($product['status'] === "ไม่อนุมัติ" || $product['status'] === "เลยกำหนด" ? "error" : "warning") ?> text-white">
                                                 <?= $product['status'] ?>
                                             </div>
                                         </td>
-                                        <td><button class="btn btn-error text-white">นำออก</button></td>
+                                        <td><a href="..\controller\approve_delete.php?p=<?= $product['p_id'] ?>" class="btn btn-error text-white">นำออก</a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -85,7 +86,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                         <?php if ($product['status'] === "กำลังยืม") { ?>
                             <div class="text-end">
                                 <input type="hidden" name="group_id" value="<?= $product['group_id'] ?>">
-                                <a href="pdf.php"><button name="submit" type="submit" class="btn btn-info text-white mt-4 ">ปริ้นเอกสาร</button></a>
+                                <a href="pdf.php?group=<?= $product['group_id'] ?>"><button name="submit" type="submit" class="btn btn-info text-white mt-4 ">ปริ้นเอกสาร</button></a>
                             </div>
                         <?php } else { ?>
                             <form method="post" action="..\controller\approve.php">
@@ -94,7 +95,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                                         <input type="hidden" name="p_id[]" value="<?= $product['p_id'] ?>">
                                     <?php } ?>
                                     <input type="hidden" name="group_id" value="<?= $product['group_id'] ?>">
-                                    <button name="submit" type="submit" class="btn btn-success text-white mt-4 <?= $product['status'] === "รออนุมัติ" || $product['status'] === "เลยกำหนด" ? "btn-disabled" : "" ?>">ยืนยันการยืม</button>
+                                    <button name="submit" type="submit" class="btn btn-success text-white mt-4 <?= $product['status'] === "รออนุมัติ" || $product['status'] === "เลยกำหนด" || $product['status'] === "คืนแล้ว" ? "btn-disabled" : "" ?>">ยืนยันการยืม</button>
                                 </div>
                             <?php } ?>
                             </form>

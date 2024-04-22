@@ -12,7 +12,23 @@ if (isset($_GET['approve']) && isset($_GET['o'])) {
 
 
 
+    if ($approve == 'return') {
 
+        $return_sql = 'UPDATE products SET amount = amount + :total_amount WHERE p_id = :p_id';
+        $return_query = $conn->prepare($return_sql);
+        $return_query->bindParam(':p_id', $p_id, PDO::PARAM_INT);
+        $return_query->bindParam(':total_amount', $amount, PDO::PARAM_INT);
+        $return_query->execute();
+
+        $status_sql = 'UPDATE oder_product SET status = :status WHERE o_id = :o_id';
+        $status_query = $conn->prepare($status_sql);
+        $status_query->bindParam(':o_id', $o_id, PDO::PARAM_INT);
+        $status = "คืนแล้ว";
+        $status_query->bindParam(':status', $status, PDO::PARAM_STR);
+        $status_query->execute();
+
+        echo "<script>window.history.back();</script>";
+    }
 
 
     if ($approve == 'ok') {
@@ -38,7 +54,7 @@ if (isset($_GET['approve']) && isset($_GET['o'])) {
             exit;
         }
 
-        
+
 
 
         $sql = "UPDATE oder_product SET status = :status WHERE o_id = :id";

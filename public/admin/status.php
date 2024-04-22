@@ -86,6 +86,7 @@
                                                 <li><a href="?pt=status&&status=approved">อนุมัติแล้ว</a></li>
                                                 <li><a href="?pt=status&&status=notapproved">ไม่อนุมัติ</a></li>
                                                 <li><a href="?pt=status&&status=borrowed">กำลังยืม</a></li>
+                                                <li><a href="?pt=status&&status=returned">คืนแล้ว</a></li>
                                                 <li><a href="?pt=status&&status=late">เลยกำหนด</a></li>
                                             </ul>
                                         </div>
@@ -146,6 +147,9 @@
                                             case 'borrowed':
                                                 $approve = "AND o.status = 'กำลังยืม'";
                                                 break;
+                                            case 'returned':
+                                                $approve = "AND o.status = 'คืนแล้ว'";
+                                                break;
                                             case 'late':
                                                 $approve = "AND o.status = 'เลยกำหนด'";
                                                 break;
@@ -193,8 +197,8 @@
                                                 <span class="text-sm text-nowrap">จำนวนคงเหลือ <?= $row['products_amount'] ?></span>
 
                                             </td>
-                                            <td class="text-xl"><?= $row['date_start'] ?></td>
-                                            <td class="text-xl"><?= $row['date_end'] ?></td>
+                                            <td class="text-xl"><?= date("d-m-Y", strtotime($row['date_start'])) ?></td>
+                                            <td class="text-xl"><?= date("d-m-Y", strtotime($row['date_end'])) ?></td>
 
                                             <td>
                                                 <label for="detail<?= $row['o_id'] ?>" class="btn btn-info text-white">
@@ -229,7 +233,7 @@
 
                                             <td>
                                                 <div class="dropdown dropdown-end">
-                                                    <div tabindex="0" role="button" class="btn btn-md btn-<?= $row['status'] === "กำลังยืม" ? "success" : ($row['status'] === "อนุมัติแล้ว" ? "accent" : ($row['status'] === "ไม่อนุมัติ" || $row['status'] === "เลยกำหนด" ? "error" : "warning")); ?> text-white">
+                                                    <div tabindex="0" role="button" class="btn btn-md btn-<?= $row['status'] === "กำลังยืม" || $row['status'] === "คืนแล้ว" ? "success" : ($row['status'] === "อนุมัติแล้ว" ? "accent" : ($row['status'] === "ไม่อนุมัติ" || $row['status'] === "เลยกำหนด" ? "error" : "warning")); ?> text-white">
                                                         <?= $row['status'] ?>
                                                     </div>
                                                     <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -241,8 +245,9 @@
                                                             <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=wait&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">รออนุมัติ</a></li>
 
                                                         <?php } elseif ($row['status'] === 'กำลังยืม') { ?>
-
-
+                                                            <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=return&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">คืนแล้ว</a></li>
+                                                        <?php } elseif ($row['status'] === 'เลยกำหนด') { ?>
+                                                            <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=wait&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">คืนแล้ว</a></li>
                                                         <?php } elseif ($row['status'] === 'ไม่อนุมัติ') { ?>
                                                             <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=ok&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">อนุมัติ</a></li>
                                                             <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=wait&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">รออนุมัติ</a></li>

@@ -76,9 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         echo "ไม่พบข้อมูล group_id ที่ถูกส่งมา";
+        echo "<script>window.history.back();</script>";
         exit;
     }
 } else {
     echo "ไม่พบข้อมูล group_id ในการส่งแบบฟอร์ม";
+    echo "<script>window.history.back();</script>";
     exit;
 }

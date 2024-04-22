@@ -53,7 +53,7 @@ $num_exit = count($exit_rs);
         <!-- เลยกำหนด -->
 
         <div class="flex justify-center items-center rounded-2xl w-1/4 h-40 bg-base-100 shadow-xl">
-            <a href="admin.php?pt=status">
+            <a href="admin.php?pt=status&&status=late">
                 <figure class="flex items-center justify-center mt-3 text-7xl">
                     <i class='bx bx-time-five'></i>
                 </figure>

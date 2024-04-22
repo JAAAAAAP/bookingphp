@@ -173,28 +173,28 @@ $currentDate = date("Y-m-d");
                         <h3 class=" font-bold my-2 ">เบอร์โทร :</h3>
                         <label class="input input-bordered flex items-center gap-2">
                             <i class='bx bxs-phone bx-sm'></i>
-                            <input type="tel" maxlength="11" class="grow" name="tel" placeholder="เบอร์โทรศัพท์" />
+                            <input type="tel" maxlength="11" class="grow" name="tel" placeholder="เบอร์โทรศัพท์" required/>
                         </label>
 
 
                         <h3 class=" font-bold my-2 ">นำไปใช้ที่ :</h3>
-                        <input type="text" name="address" class="input input-bordered w-full" />
+                        <input type="text" name="address" class="input input-bordered w-full" required/>
 
                         <h3 class=" font-bold my-2 ">อาจารย์ผู้สอน</h3>
-                        <input type="text" name="teacher" class="input input-bordered w-full" />
+                        <input type="text" name="teacher" class="input input-bordered w-full" required/>
 
                         <h3 class=" font-bold my-2 ">หน่วยงานสาขา :</h3>
-                        <select class="select select-bordered w-full max-w-xs" name="department">
+                        <select class="select select-bordered w-full max-w-xs" name="department" required>
                             <option disabled selected>หน่วยงานสาขา</option>
                             <option>ทดสอบ 1</option>
                             <option>ทดสอบ 2</option>
                         </select>
 
                         <h3 class=" font-bold my-2 ">วันที่ยืม</h3>
-                        <input type="date" min="<?= $currentDate; ?>" name="date-start" class="input w-full max-w-xs">
+                        <input type="date" min="<?= $currentDate; ?>" name="date-start" class="input w-full max-w-xs" required>
 
                         <h3 class=" font-bold my-2 ">วันที่คืน</h3>
-                        <input type="date" min="<?= $currentDate; ?>" name="date-end" class="input w-full max-w-xs">
+                        <input type="date" min="<?= $currentDate; ?>" name="date-end" class="input w-full max-w-xs" required>
 
                         <div class="font-bold my-2 text-error">
                             <h1>*หมายเหตุ</h1>
