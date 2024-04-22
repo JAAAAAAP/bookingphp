@@ -28,7 +28,7 @@ if (isset($_GET['approve']) && isset($_GET['o'])) {
             $(document).ready(function() {
                 Swal.fire({
                 icon: 'error',
-                title: 'จำนวนไม่เพียงพอต่อการอนุมัติ',
+                title: 'จำนวนไม่เพียงพอต่อการยืม',
                 timer: 1500,
                 showConfirmButton: false
               });
@@ -38,12 +38,7 @@ if (isset($_GET['approve']) && isset($_GET['o'])) {
             exit;
         }
 
-        $minus_sql = 'UPDATE products SET amount = amount - :amount WHERE p_id = :p_id';
-        $minus = $conn->prepare($minus_sql);
-        $minus->bindParam(':p_id', $p_id, PDO::PARAM_INT);
-        $minus->bindParam(':amount', $amount, PDO::PARAM_INT);
-        $minus->execute();
-
+        
 
 
         $sql = "UPDATE oder_product SET status = :status WHERE o_id = :id";
@@ -62,11 +57,6 @@ if (isset($_GET['approve']) && isset($_GET['o'])) {
         $reject_query->execute();
         echo "<script>window.history.back();</script>";
     } elseif ($approve == 'wait') {
-        $pash_sql = 'UPDATE products SET amount = amount + :amount WHERE p_id = :p_id';
-        $pash = $conn->prepare($pash_sql);
-        $pash->bindParam(':p_id', $p_id, PDO::PARAM_INT);
-        $pash->bindParam(':amount', $amount, PDO::PARAM_INT);
-        $pash->execute();
 
         $wait_sql = "UPDATE oder_product SET status = :status WHERE o_id = :id";
         $wait_query = $conn->prepare($wait_sql);

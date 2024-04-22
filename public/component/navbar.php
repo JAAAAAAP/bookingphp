@@ -7,11 +7,22 @@ $query->execute();
 $count = $query->fetchColumn();
 $display = ($count > 0) ?  " " : "hidden";
 
-
-
-
+$order_sql = "SELECT DISTINCT group_id FROM oder_product WHERE user_id = :id AND status != 'รอดำเนินการ'";
+$order_query = $conn->prepare($order_sql);
+$order_query->bindParam(":id", $_SESSION["id"], PDO::PARAM_INT);
+$order_query->execute();
+$order_count = $order_query->rowCount();
+$order_display = (!empty($order_count)) ? "" : "hidden";
 
 ?>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap');
+
+    * {
+        font-family: 'Kanit', sans-serif;
+    }
+</style>
+
 <nav class="navbar sticky top-0 z-50 justify-between bg-base-200 shadow-lg">
     <div class="flex">
         <a class="btn btn-ghost text-xl">logo</a>
@@ -27,6 +38,13 @@ $display = ($count > 0) ?  " " : "hidden";
 
                     <span class="indicator-item badge badge-primary top-1 right-2 <?php echo $display ?>"><?php echo $count ?></span>
                     <a href="\jaa\bookingphp\public\order.php" class="text-base mx-2 btn btn-ghost uppercase">รายการยืม</a>
+                </div>
+            </li>
+            <li>
+                <div class="indicator <?= $order_display ?>">
+
+                    <span class="indicator-item badge badge-primary top-1 right-2 <?= $order_display ?>"><?= $order_count ?></span>
+                    <a href="\jaa\bookingphp\public\approve.php" class="text-base mx-2 btn btn-ghost uppercase">การอนุมัติ</a>
                 </div>
             </li>
         <?php

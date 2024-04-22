@@ -1,6 +1,6 @@
 <?php
 session_start();
-var_dump($_POST);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php');
 

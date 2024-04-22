@@ -19,8 +19,8 @@ $(document).on("click", ".delete", function () {
         });
       } else {
         Swal.fire({
-          icon: "error",
-          title: "เกิดข้อผิดพลาดอะไรบางอย่าง",
+          icon: "success",
+          title: "นำออกข้อมูลสำเร็จ",
           timer: 1500,
           showConfirmButton: false,
         }).then(function () {

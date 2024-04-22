@@ -85,6 +85,7 @@
                                                 <li><a href="?pt=status&&status=wait">รออนุมัติ</a></li>
                                                 <li><a href="?pt=status&&status=approved">อนุมัติแล้ว</a></li>
                                                 <li><a href="?pt=status&&status=notapproved">ไม่อนุมัติ</a></li>
+                                                <li><a href="?pt=status&&status=borrowed">กำลังยืม</a></li>
                                                 <li><a href="?pt=status&&status=late">เลยกำหนด</a></li>
                                             </ul>
                                         </div>
@@ -141,6 +142,9 @@
                                                 break;
                                             case 'notapproved':
                                                 $approve = "AND o.status = 'ไม่อนุมัติ'";
+                                                break;
+                                            case 'borrowed':
+                                                $approve = "AND o.status = 'กำลังยืม'";
                                                 break;
                                             case 'late':
                                                 $approve = "AND o.status = 'เลยกำหนด'";
@@ -225,14 +229,46 @@
 
                                             <td>
                                                 <div class="dropdown dropdown-end">
-                                                    <div tabindex="0" role="button" class="btn btn-md btn-<?= $row['status'] === "อนุมัติแล้ว" ? "success" : ($row['status'] === "ไม่อนุมัติ" || $row['status'] === "เลยกำหนด" ? "error" : "warning") ?> text-white">
+                                                    <div tabindex="0" role="button" class="btn btn-md btn-<?= $row['status'] === "กำลังยืม" ? "success" : ($row['status'] === "อนุมัติแล้ว" ? "accent" : ($row['status'] === "ไม่อนุมัติ" || $row['status'] === "เลยกำหนด" ? "error" : "warning")); ?> text-white">
                                                         <?= $row['status'] ?>
                                                     </div>
                                                     <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                                        <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=wait&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">รออนุมัติ</a></li>
-                                                        <li><a href="\jaa\bookingphp\controller\order_approve.php?approve=ok&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">อนุมัติ</a></li>
-                                                        <li><a href="\jaa\bookingphp\controller\order_approve.php?approve=no&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">ไม่อนุมัติ</a></li>
+                                                        <?php if ($row['status'] === "รออนุมัติ") { ?>
+                                                            <li><a href="\jaa\bookingphp\controller\order_approve.php?approve=ok&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">อนุมัติ</a></li>
+                                                            <li><a href="\jaa\bookingphp\controller\order_approve.php?approve=no&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">ไม่อนุมัติ</a></li>
+                                                        <?php } elseif ($row['status'] === 'อนุมัติแล้ว') { ?>
+                                                            <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=no&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">ไม่อนุมัติ</a></li>
+                                                            <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=wait&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">รออนุมัติ</a></li>
+
+                                                        <?php } elseif ($row['status'] === 'กำลังยืม') { ?>
+
+
+                                                        <?php } elseif ($row['status'] === 'ไม่อนุมัติ') { ?>
+                                                            <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=ok&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">อนุมัติ</a></li>
+                                                            <li class=""><a href="\jaa\bookingphp\controller\order_approve.php?approve=wait&&o=<?= $row['o_id'] ?>&&p=<?= $row['p_id'] ?>&&amount=<?= $row['amount'] ?>">รออนุมัติ</a></li>
+                                                        <?php } ?>
                                                     </ul>
+                                                    <?php
+                                                    // วันและเวลาที่กำหนด
+                                                    $datetime_sql = 'SELECT date_end FROM oder_product WHERE status = "กำลังยืม"';
+                                                    $datetime_result = $conn->prepare($datetime_sql);
+                                                    $datetime_result->execute();
+                                                    $datetime_row = $datetime_result->fetch(PDO::FETCH_ASSOC);
+
+                                                    if ($datetime_row) {
+                                                        $deadline = strtotime($datetime_row['date_end']);
+
+
+                                                        $current_time = time();
+
+                                                        if ($current_time > $deadline) {
+                                                            $sql = 'UPDATE oder_product SET status = "เลยกำหนด" ';
+                                                            $query = $conn->prepare($sql);
+                                                            $query->execute();
+                                                        }
+                                                    }
+                                                    ?>
+
                                                 </div>
                                             </td>
 

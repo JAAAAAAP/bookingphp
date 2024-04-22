@@ -19,13 +19,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
     <?php include_once "../plugin/plug.php" ?>
 </head>
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap');
 
-    * {
-        font-family: 'Kanit', sans-serif;
-    }
-</style>
 
 <body>
 
@@ -63,6 +57,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
         }
         ?>
     </div>
+
 
 
 
