@@ -20,12 +20,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 </head>
 
 
-
 <body>
-
     <!-- navbar -->
     <?php include_once("./component/navbar.php") ?>
-
     <div class="grid grid-cols-4 gap-4 m-8">
         <?php
         $sql = "SELECT * FROM products";

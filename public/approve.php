@@ -78,7 +78,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
                                                 <?= $product['status'] ?>
                                             </div>
                                         </td>
-                                        <td><a href="..\controller\approve_delete.php?p=<?= $product['p_id'] ?>" class="btn btn-error text-white">นำออก</a></td>
+                                        <td><a href="..\controller\approve_delete.php?p=<?= $product['p_id'] ?>" class="btn btn-error text-white <?= $product['status'] === "กำลังยืม" ?  "btn-disabled" : "" ?>">นำออก</a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
