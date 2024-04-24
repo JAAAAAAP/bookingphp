@@ -20,11 +20,10 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
 </head>
 
 
-
 <body>
-
     <!-- navbar -->
     <?php include_once("./component/navbar.php") ?>
+<<<<<<< HEAD
     
     <div class="text-end mr-4">
         <select class="select select-bordered w-36 select-sm mt-8 md:w-48">
@@ -35,6 +34,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/jaa/bookingphp/config/connectdb.php')
     </div>
 
     <div class="flex flex-col ">
+=======
+    <div class="grid grid-cols-4 gap-4 m-8">
+>>>>>>> f7bceeab8903b7fec242cf812c055e214b1fd826
         <?php
         $sql = "SELECT p_id,name,amount,img,sn_products FROM products";
         $query = $conn->prepare($sql);
