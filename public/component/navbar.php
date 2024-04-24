@@ -14,6 +14,9 @@ $order_query->execute();
 $order_count = $order_query->rowCount();
 $order_display = (!empty($order_count)) ? "" : "hidden";
 
+$url = $_SERVER['REQUEST_URI'];
+
+
 ?>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap');
@@ -23,24 +26,38 @@ $order_display = (!empty($order_count)) ? "" : "hidden";
     }
 </style>
 
-<nav class="navbar sticky top-0 z-50 justify-between bg-base-200 shadow-lg">
+<nav class="navbar sticky top-0 w-full z-50 justify-between bg-base-200 shadow-lg">
     <div class="flex">
-        <a class="btn btn-ghost text-xl">logo</a>
+        <figure class="mx-4">
+            <a href="#"><img class="w-36 md:w-56" src="/jaa/bookingphp/public/img/logo.png" alt=""></a>
+        </figure>
     </div>
     <ul class="flex flex-row-reverse">
         <?php
         if (isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
         ?>
-            <li><a class="text-base mx-2 btn btn-ghost uppercase" onclick="profile.showModal()"><?= $_SESSION['user'] ?></a></li>
-            <li>
-                <div class="indicator <?php echo $display ?>">
+
+            <div class="dropdown dropdown-end md:hidden">
+                <div tabindex="0" role="button" class="btn m-1"><i class='bx bx-menu bx-sm'></i></div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li class="text-center"><a>หน้าแรก</a></li>
+                    <li class="text-center"><a>ติดต่อ</a></li>
+                    <li><a href="logout.php" class="">ออกจากระบบ</a></li>
+                </ul>
+            </div>
+
+            <li class="hidden md:block"><a class="text-base mx-2 btn btn-ghost uppercase" onclick="profile.showModal()"><?= $_SESSION['user'] ?></a></li>
+
+            <li class="hidden md:block">
+                <div class=" indicator <?php echo $display ?>">
 
                     <span class="indicator-item badge badge-primary top-1 right-2 <?php echo $display ?>"><?php echo $count ?></span>
                     <a href="\jaa\bookingphp\public\order.php" class="text-base mx-2 btn btn-ghost uppercase">รายการยืม</a>
                 </div>
             </li>
-            <li>
+
+            <li class="hidden md:block">
                 <div class="indicator <?= $order_display ?>">
 
                     <span class="indicator-item badge badge-primary top-1 right-2 <?= $order_display ?>"><?= $order_count ?></span>
@@ -50,12 +67,13 @@ $order_display = (!empty($order_count)) ? "" : "hidden";
         <?php
         } else {
         ?>
-            <li><a class="text-base mx-2 btn btn-ghost" onclick="login.showModal()">เข้าสู่ระบบ</a></li>
+            <li class=""><a class="text-base mx-2 btn btn-ghost" onclick="login.showModal()">เข้าสู่ระบบ</a></li>
         <?php
         }
         ?>
-        <li><a href="\jaa\bookingphp\public\index.php" class="text-base mx-2 btn btn-ghost">หน้าแรก</a></li>
-        <li><a href="#" class="text-base mx-2 btn btn-ghost">ติดต่อ</a></li>
+        <li class="hidden md:block"><a href="\jaa\bookingphp\public\index.php" class="text-base mx-2 btn btn-ghost">หน้าแรก</a></li>
+        <li class="hidden md:block"><a href="#" class="text-base mx-2 btn btn-ghost">ติดต่อ</a></li>
+
     </ul>
 </nav>
 
@@ -91,3 +109,27 @@ $order_display = (!empty($order_count)) ? "" : "hidden";
         <a class="text-base text-white my-2 btn btn-error" href="logout.php">ออกจากระบบ</a>
     </div>
 </dialog>
+
+<?php
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+?>
+    <div class="btm-nav md:hidden">
+        <a href="index.php" class="<?= strpos($url, 'index.php') ? "active" : "" ?>">
+            <i class='bx bx-home bx-sm'></i>
+            <span class="btm-nav-label">Home</span>
+        </a>
+        <a href="order.php" class="<?= strpos($url, 'order.php') ? "active" : "" ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="btm-nav-label">Warnings</span>
+        </a>
+         
+        
+        <a href="<?php echo $_SESSION['role'] == 1 ? "./admin/admin.php" : "#" ?>" class="">
+            <i class='bx bx-user bx-sm'></i>
+            <span class="btm-nav-label"><?= $_SESSION['user'] ?></span>
+        </a>
+    </div>
+<?php } ?>
